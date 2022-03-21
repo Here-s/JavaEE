@@ -1,5 +1,6 @@
 public class TestDemo11 {
 
+
     public static void main(String[] args) {
         Thread t = new Thread(()-> {
             //这里的标志位，在结束线程之后，并不清理标志位。无脑使用这个就好。
