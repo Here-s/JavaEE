@@ -13,7 +13,6 @@ class MyThread extends Thread {
 
 public class TestDemo {
 
-
     //最基本的创建线程的办法
     public static void main(String[] args) {
         Thread t = new MyThread();
