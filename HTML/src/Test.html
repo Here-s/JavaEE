@@ -1,0 +1,44 @@
+<!--声名了文件格式-->
+<!--HTML 和 CSS 只是展示内容，没有逻辑-->
+<!doctype html>
+<!--声名了语言-->
+<html lang="en">
+<head>
+    <!--这里放的内容主要是页面的一些属性，和页面展示的内容没有关系-->
+    <!--声名字符编码是 UTF-8-->
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--浏览器标签页的标题，添加收藏夹的默认名字就是这个标题-->
+    <title>Title</title>
+</head>
+<!--body 标签里面放的是页面要展示的内容，页面上不同的元素，就对应到不同的标签-->
+<!--html 当中不要随便写注释，会被其它人看到。写了不当的注释，可能被别人瞎搞-->
+<body>
+<!--标题标签：h1 - h6 -->
+<!--    <h1>这是一级标题</h1>-->
+<!--    <h2>这是二级标题</h2>-->
+<!--    <h3>这是三级标题</h3>-->
+<!--    <h4>这是四级标题</h4>-->
+<!--    <h5>这是五级标题</h5>-->
+<!--    <h6>这是六级标题</h6>-->
+
+<!--表示段落 p   通过 lorem+tab 就可以生成一段长段落-->
+<style>
+    p {
+        /*这个操作就是让所有的 p 标签，都首行缩进两个字*/
+        text-indent: 2em;
+    }
+</style>
+<!--br 标签，表示换行，是一个单标签-->
+<!--HTML 当中,会把多个相邻的 空格,合并为一个,像 < > &等符号 就需要使用转义字符了-->
+<!--表示多个空格 &nbsp  > 使用-->
+    <p>这是第一个段落 Lorem ipsum dolor&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; sit amet, consectetur <br>adipisicing elit. Adipisci, animi consequatur cum ea eius explicabo iusto nam nemo nesciunt nobis odio placeat quasi quibusdam tempora veritatis voluptatibus voluptatum! At, totam.</p>
+    <p>这是第二个段落 Lorem ipsum dolor sit amet, consectetur adipisicing <br>elit. Corporis eligendi itaque nisi provident, quaerat quisquam sequi. Aperiam deleniti eligendi, impedit ipsum iure libero possimus praesentium sapiente velit? Labore, non odio.</p>
+    <p>这是第三个段落 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid beatae, consequuntur dolorem doloribus ducimus eaque esse, fuga fugit id in ipsam iure iusto maiores nesciunt nisi quisquam reprehenderit soluta tempore!</p>
+
+hello word test
+
+</body>
+</html>
