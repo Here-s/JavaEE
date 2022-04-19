@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+<!--HTML 文件当中的换行，和显示的换行没有任何关系，要想显示换行，就需要使用 br 标签-->
+
+<!--块级元素：独占一行    行内元素：不能独占一行-->
+    <body>
+        <strong>加粗</strong>
+        <b>加粗</b>
+        <!--这里就完成了换行-->
+        <br>
+        <em>倾斜</em>
+        <i>倾斜</i>
+        <del>删除线</del>
+        <s>删除线</s>
+        <ins>下划线</ins>
+        <u>下划线</u>
+        
+<!--使用 img 来表示图片，也是一个单标签，可以写很多属性，最重要的就是 src 描述的是图片所在的位置。
+  可以是绝对路径，也可以是相对路径，也可以是网络路径，也可以加 br 换行。如果图片的信息挂了，
+  就会用 alt 的内容来表示-->
+        <img src="测试.png" alt="这是一个截图">
+        <img src="D:\JavaEE\HTML\src\testimg.png" alt="">
+<!--        <img src="https://pic2.zhimg.com/v2-a2c4da45af685c8d5bc746ca75f9acfc_400x224.png?source=d16d100b" alt="">-->
+        <br>
+<!--width 就是图片的宽,height 就是图片的高,px 就是表示像素大小,像素越多,显示效果越好.
+  做一些有关界面的操作,都会涉及到像素这样的概念.如果同时设置 宽度 和 高度,就可能导致比例失调.
+  如果只设置 宽度和高度, 另外一个就会根据比例调整.属性不分前后顺序-->
+        <img src="测试.png" alt="这是一个截图" title="这是对图片内容进行提示" width="500px" height="600px">
+<!--在 HTML 的开始标签(结束标签不行),可以给标签设置一些 属性,属性都是"键值对"这样的形式.键值对之间使用 = 来分隔
+  key 一般不需要加引号, value 一般使用 "" 来引起来,并且一个标签,可以设置多个属性.不同的 HTML 标签,
+  支持的属性是不一样的,(当然,也有些属性,是每个标签都有的)-->
+
+
+<!--超链接: a 标签 href就是表示跳转到哪里.标签中间的文字,就是可以点的地方.也是行内元素.
+  也可以相互跳转同一个文件的不同页面,也可以使用 # 来表示空连接.如果 href 里面的链接是一个 普通文件（zip就可以）,
+  就会触发一个下载文件操作,如果把 图片 放到 a 标签里面,就能实现点击图片跳转-->
+        <a href="https://zhuanlan.zhihu.com/p/166225817">啦啦啦,是超链接</a>
+        <a href="合同.zip">下载链接</a>
+        <a href="Test.html">跳转到 Test</a>
+        <a href="#">空连接</a>
+        <a href="https://zhuanlan.zhihu.com/p/166225817"><img src="测试.png" alt=""></a>
+
+<!--锚点链接,点击之后可以快速跳转到页面的某个位置,类似于目录.页面跳转,可以通过锚点链接和 js 来实现
+  js 功能比 HTML 强很多-->
+
+<!--a 叫做 超链接, 连接 和 链接不一样.链接是:link 快捷方式的意思.
+  连接:表示 客户端和服务器 通信就绪的一种状态-->
+
+<!--表格标签: table:表示整个表格  tr: 表示表格的一行  td: 表示一列  th: 表示表头中的一列
+  如果不加任何属性,看起来很难像一个表格.可以给 table 标签加一些属性 border 就是边框,
+  通过 width  height 来设置表格的长宽.还可以使用 th 标签 来给表格加表头。使用 cellspacing 来
+  去掉单元格之间的间隙。使用 css 当中的 text-align 使表格的内容集中显示。实际开发当中，很多东西是通过
+  css 来实现的，很少直接使用 table 不过 css 当中多个属性容易相互影响-->
+        <!--这里就是给 td 标签加个格式 center 就是居中-->
+        <style>
+            td {
+                text-align: center;
+            }
+        </style>
+        <table border="2px" width="300" height="150" cellspacing="0">
+            <tr>
+                <th>姓名</th>
+                <th>电话</th>
+            </tr>
+            <tr>
+                <td>张三</td>
+                <td>110</td>
+            </tr>
+            <tr>
+                <td>李四</td>
+                <td>120</td>
+            </tr>
+            <tr>
+                <td>王五</td>
+                <td>130</td>
+            </tr>
+        </table>
+
+<!--列表标签：ul（unordered list） 表示无序列表    ol（ordered list） 表示有序列表
+    li（list item） 列表    dl 自定义列表（dt 和 dd 组成）-->
+        <h3>无序列表</h3>
+        <ul>
+            <li>啦啦啦</li>
+            <li>哈哈哈</li>
+            <li>也一样</li>
+        </ul>
+
+        <h3>有序列表</h3>
+        <ol>
+            <li>啦啦啦</li>
+            <li>哈哈哈</li>
+            <li>也一样</li>
+        </ol>
+
+        <h3>自定义列表</h3>
+        <dl>
+            <dt>强强强强</dt>
+            <dd>啦啦啦</dd>
+            <dd>哈哈哈</dd>
+            <dd>也一样</dd>
+        </dl>
+        
+<!--表单标签(from): 是用户和页面之间交互的重要手段,大多数是让 用户 来输入,借助这个 from 用户可以输入一些信息
+  并把这些信息提交到服务器上面-->
+        <from>
+<!--单行文本框-->
+            <input type="text"> <br>
+<!--也是单行文本框，不过可以输入密码，默认显示小原点-->
+            <input type="password"> <br>
+<!--单选框：radio  加了 name 之后，就只能选一个了。加入checked 之后，就实现默认选择了。让 input 标签
+  搭配 label 标签，就可以实现：点击名字也能选中标签了.不过一定要搭配 id 属性，id 属性任意的 html 元素，
+  都可以指定 id 属性，在一个页面中，id 的取值不能重复（唯一的）-->
+            <input type="radio" name="gender" id="male"> <label for="male">男</label>
+            <input type="radio" name="gender" checked="checked" id="female"> <label for="female">女</label>
+            <br>
+<!--复选框：checkbox -->
+            <input type="checkbox" id="123"> <label for="123">吃饭</label>
+            <input type="checkbox" id="2"> <label for="2">睡觉</label>
+            <input type="checkbox" id="3"> <label for="3">喝水</label>
+            <input type="checkbox" id="4"> <label for="4">玩游戏</label>
+            <br>
+<!--按钮操作 value 里面可以加 文字. onclick 是 js 按钮，点击就会触发，触发的内容就是 “” 里面的代码，
+  会被浏览器执行.alert 就是弹出一个对话框。也可以直接 button 标签来实现按钮.更多的是使用 button
+  因为 button 可以包含很多东西-->
+            <input type="button" value="这是按钮" onclick="alert('hello')">
+            <button onclick="alert('按钮2')">这是按钮2</button>
+
+<!--选择文件，点击文件就会弹出对话框，就可以选中本地的一个文件，然后 浏览器就会打开这个文件，
+  进一步实现 提交/上传 文件到服务器-->
+            <input type="file">
+
+<!--select 下拉菜单，每个菜单项，是一个 option，通过 selected 来设置默认选项-->
+            <select>
+                <option>-- 请选择年份 --</option>
+                <option>2000</option>
+                <option selected="selected">2001</option>
+                <option>2002</option>
+            </select>
+<!--textarea 多行编辑框-->
+            <textarea cols="30" rows="10">
+
+            </textarea>
+
+        </from>
+<!--无语义标签：div  span  出现频率最高的标签，可以代替上面绝大部分有寓意标签的的功能，但是 from 这一系列
+  代替不了。使用 css 就可以实现代替功能。div 默认块级元素，span 默认行级元素。对 div 用 css 加点样式
+  就可以达到 标题那样的效果-->
+        <div>
+            <span>AAA</span>
+            <span>AAA</span>
+            <span>AAA</span>
+        </div>
+        <div>
+            <span>BBB</span>
+            <span>BBB</span>
+            <span>BBB</span>
+        </div>
+        <div>
+            <span>CCC</span>
+            <span>CCC</span>
+            <span>CCC</span>
+        </div>
+    </body>
+</html>
