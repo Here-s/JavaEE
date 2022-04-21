@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>CSS</title>
+        <!--通过 link 标签来引入 css 样式，一般放在 head 标签里面，而且可以存在多份。同时 开发者工具
+        里面也会提醒这个样式是哪个 css 引入的。-->
+        <!--<link rel="stylesheet" href="test.css">-->
+    </head>
+    <body>
+<!--HTML 是页面的骨，CSS 就是页面的样式，就是皮，就是描述了任意一个网页的元素：大小、字体、颜色、背景、边框
+  每一个 CSS 包含两个部分：选择器+应用的属性，p 就是选择器，大括号里面就是键值对结构，
+  就来表示 CSS 中的各种属性。键值对之间使用 分号 来分隔，习惯上每个键值对独占一行，键和值之间使用 分号 来分隔，
+  习惯上会在 冒号 后面加个空格。CSS 代码可以放到 HTML 当中（通常是放在 style 当中），然后 style 标签
+  可以放到 HTML 中的任意位置。CSS 代码风格，建议展开来写，不过 CSS 文件会变大，由于 CSS 文件都是通过 网络
+  来传递给浏览器的，然后浏览器来解析，如果 CSS 文件太大，就会更吃网络带宽，然后要想效率。部署项目的时候，
+  可以通过 第三方工具 来进行打包转换，js 也是这样打包的。打包的时候替换的代码，会单独生成一个文件。
+  HTML 和 CSS 都不区分大小写，习惯上写代码的时候，都用 小写，CSS 当中不存在 驼峰命名法。
+  CSS 里一般使用”脊柱命名法“使用 - 来分割单词，大部分编程语言都不使用 - ，防止和 符号 混肴
+  CSS 不能运算，也不能表示逻辑，下划线方法，就是 蛇形命名法-->
+
+<!--CSS 的引入方式：1、内部样式表，通过 style 标签来写 CSS，这种做法不太常见，简单的 CSS 这样写也没问题
+  2、内联样式：通过 HTML 标签当中的 style 属性，来应用一些样式-->
+
+<!-- 1、内部样式表，就是对所有 p 标签生效      <style>-->
+<!--            p {-->
+<!--                color: red;-->
+<!--            }-->
+<!--        </style>-->
+
+
+<!--2、内联样式：,通常会搭配 js 来使用，这种写法适用于样式特别简单的情况（如果样式比较复杂，就会显示的很乱
+  内联样式 只是针对当前元素生效（不需要写选择器，也不写{}，直接写 CSS 属性和值即可-->
+        <p style="color: rosybrown">
+            hello 凉凉
+        </p>
+
+        <!--. 开头的就是 CSS 中的类名。通过 类选择器 来指定颜色-->
+        <!--<style>-->
+        <!--    .red {-->
+        <!--        color: red;-->
+        <!--        font-size: 40px;-->
+        <!--    }-->
+        <!--</style>-->
+        <!--<p class="red">-->
+        <!--    hello word-->
+        <!--</p>-->
+        <!--<p>-->
+        <!--    hello C-->
+        <!--</p>-->
+        <!--<p class="red">-->
+        <!--    hello java-->
+        <!--</p>-->
+        <!--<p>-->
+        <!--    hello C++-->
+        <!--</p>-->
+        <!--<p>-->
+        <!--    hello lll-->
+        <!--</p>-->
+
+<!--3、外部样式：实际开发当中，用的最多。把 CSS 单独提取出来，放到 .css 文件当中，然后 HTML 代码里，
+  通过 link 标签，来引入该 CSS。这个方式，可以让多个 HTML 复用一份样式。很多网页有相似的样式，
+  就可以使用同样的 CSS 然后在 head 部分引入就可以-->
+
+
+
+<!--选择器：选择器的功能，就是选中页面的元素（标签），可以一次选一个，也可以一次选一批
+  1、基础选择器：标签选择器（style）  2、类选择器（就可以随心所欲的选择任意想要的元素，理论上来说，只要有这一种就够用了，
+   首先，需要在 CSS 代码当中创建一个类名，在对应的 HTML 元素中，通过 class 来引用这个类名，此时具有该类名的元素，
+   就都会应用上相关的 CSS 属性。以 . 开头的就是 类选择器。
+   3、id 选择器（先给被选中的元素，设定个 id 属性（id 在一个页面中，不能重复）因此 id 选择器只能选中一个元素，不能选中多个-->
+        <style>
+            #cpp {
+                color: chartreuse;
+            }
+        </style>
+        <p>
+            hello C
+        </p>
+        <p id="cpp">
+            hello java
+        </p>
+        <p>
+            hello C++
+        </p>
+        <p>
+            hello lll
+        </p>
+
+   <!--4、通配符选择器：就是 * 直接选中了页面上的所有元素，最大的用途就是取消浏览器的默认样式。不同的浏览器，默认样式不一样，-->
+   <!--所以前端开发的时候，就要取消默认样式：#cpp-->
+
+
+<!--通配符选择器，来取消默认样式-->
+<!--        <style>-->
+<!--            * {-->
+<!--                margin: 0;-->
+<!--                padding: 0;-->
+<!--                box-sizing: border-box;-->
+<!--            }-->
+<!--        </style>-->
+
+<!--复合选择器：把多种基础选择器综合运用起来。1、后代选择器（通过多个选择器的组合，能够选中某个元素
+    里面的子/孙子元素（后代元素）-->
+
+        <style>
+            /*先去选择 ul 然后看 ul 里面有没有 li 后代，中间必须有空格   都是 name 那么就是找的 ul 里面的 name */
+            ul .name {
+                color: red;
+            }
+        </style>
+        <ul>
+            <li class="name">AAA</li>
+            <li><a href="#">BBB</a></li>
+            <li>CCC</li>
+        </ul>
+
+        <ol>
+            <li class="name">AAA</li>
+            <li><a href="#">BBB</a></li>
+            <li>CCC</li>
+        </ol>
+
+        <!--2、子选择器：通过多个选择器的组合，能够选中 某个元素 里面的 子元素：选择器1 > 选择器2-->
+        <style>
+            ul>.name {
+                color: red;
+            }
+        </style>
+        <ul>
+            <li class="name">AAA</li>
+            <li>BBB</li>
+            <li>CCC</li>
+        </ul>
+
+        <ol>
+            <li class="name">AAA</li>
+            <li>BBB</li>
+            <li>CCC</li>
+        </ol>
+
+        <!--并集选择器：并列的写多个选择器，中间使用逗号来分隔。里面可以写简单的选择器，也可以写符合的选择器。
+          CSS 当中，有些属性：color，front 相关，这种就会被子元素继承，还有很多属性不会被子元素继承-->
+        <style>
+            ul>li, ol>li {
+                color: cyan;
+            }
+        </style>
+        <ul>
+            <li class="name">AAA</li>
+            <li><a href="#">BBB</a></li>
+            <li>CCC</li>
+        </ul>
+
+        <ol>
+            <li class="name">AAA</li>
+            <li><a href="#">BBB</a></li>
+            <li>CCC</li>
+        </ol>
+
+        <!--伪类选择器：a：hover 选择鼠标指针悬停上的链接。  a：active 选择活动链接（鼠标按下了但是未弹起-->
+        <style>
+            div {
+                color: black;
+            }
+            /*鼠标悬停的时候，应用这个样式*/
+            div:hover {
+                color: red;
+            }
+            /*鼠标按下的时候，应用这个样式*/
+            div:active {
+                color: cyan;
+            }
+        </style>
+        <div>
+            这是一个div
+        </div>
+
+
+        <!--设置字体，设置的时候，要保证对方的系统上面存在，也可以通过 HTML 中的 link 属性来加载网络上的文字-->
+        <style>
+            .one {
+                /*设置字体*/
+                font-family: '微软雅黑';
+                /*设置字体大小*/
+                font-size: 50px;
+                /*设置字体粗细*/
+                font-weight: 900;
+                /*设置字体样式。主要是用来 取消倾斜*/
+                font-style: italic;
+            }
+            .two {
+                font-family: '宋体';
+                font-size: 20px;
+            }
+        </style>
+        <div class="one">
+            这是一行字
+        </div>
+        <div class="two">
+            这是另一行字
+        </div>
+
+        <!--字体颜色：1、直接使用单词表示（表示种类有限）2、使用 rgb 来表示-->
+        <style>
+            div {
+                /*color: red;*/
+                /*color: rgb(101, 42, 130);*/
+                /*十六进制表示，不区分大小写，分别是 红绿蓝*/
+                color: #00ff00;
+                /*多了个分量，alpha 表示 透明度*/
+            }
+        </style>
+        <div>
+            这是一段话
+        </div>
+
+        <!--文本对齐：text-align-->
+        <style>
+            .one {
+                /*左对齐*/
+                text-align: left;
+            }
+            .two {
+                text-align: center;
+            }
+            .three {
+                text-align: right;
+            }
+        </style>
+        <div class="three">
+            另外一行字
+        </div>
+        <br>
+
+    </body>
+</html>
