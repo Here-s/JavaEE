@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>JS</title>
+    </head>
+    <body>
+
+        <!--行内式，js 当中表示 字符串，可以使用 单引号，也可以表示 双引号-->
+        <button onclick="alert('hello')">这是一个按钮</button>
+        <script src="appjs.js">
+            //script 里面如果有 src，还有 alert，那么里面这个就不生效了。一个 script 里面只能有一个
+            alert('hello html')
+        </script>
+        <script>
+        //这里放 js 代码，js 里面语句的 分号 可以写，也可以不写
+        //js 的几种书写方法：1、内嵌式：把 js 写道 html 标签中   2、行内式：把 js 写到 HTML 元素内部
+        // 3、外部式：把 js 单独写到一个文件里面，然后在 html 里面通过 script 来引入
+
+        alert('hello');
+        //输入：prompt
+
+        //打印日志，开发中最常用的一种方式，会把日志给输出到控制台当中（浏览器的控制台）js 代码运行出错的时候
+        // 也会在控制台当中显示
+        console.log('hello log');
+        </script>
+
+        <!--js 的基本语法：1、变量：定义一个变量 var 变量名：变量值  js 不区分整形和浮点型-->
+        <script>
+            var num = 10;//创建一个 名字为 num 的，数字类型的变量
+            num = 20;//如果 num 是一个数字类型，那么在赋值的时候，可以赋一个数字类型，也可以赋一个字符串类型。
+            //变量的类型，可以在运行过程中，随着赋值儿发生改变。就是 动态类型。
+            console.log(num)
+            var s = 'hello';//创建一个 名字为 s 的，字符串类型变量
+            var arr = [];//创建一个名字为 arr 的，数组类型的变量
+
+            //还可以使用 let 关键字来替换 var，因为 var 是旧版本（早期的设计，很多是违背直觉的）
+            {
+                var a = 10;
+            }
+            console.log(a);//还能访问到，如果改成 let 的话，这里就访问不到了，符合开发逻辑
+
+            //js 的基本类型：number 数字，Boolean 真假，string 字符串，undefined 唯一的值，表示未定义的值
+            // null 只有唯一的值，表示空值  infinity：无穷大，以及超粗了 js 的表示范围，加负号，表示无穷小
+            // NaN 表示当前的结果不是一个数字。
+            console.log('hello' - 10);//换成 加法的话，就是字符串拼接了
+            //如果字符串里面包含了引号，那就通过 单双引号 搭配来表示引号，就不用使用 转义字符了。
+
+            let s1 = 'hello word';
+            console.log(s1.length);//这里的长度是 字符
+
+            let a1 = 'hello';
+            let a2 = 10;
+            console.log(a1 + a2);//这里是字符串的拼接
+
+            //js 里面的 布尔 类型，会被当成 1和0 处理。
+            let a3 = true;
+            console.log(a3 + 1);//这里的 a3 就被当作 1 来进行运算了
+            //一个编程语言，越不支持隐式类型转换，认为类型越强。
+
+            let a4;//a4 的值就是 undefined 属于非法的情况。开发的时候，就不应该主动使用 undefined
+            console.log(a4);
+            let a5 = null;//表示当前这个值属于 没有值 这个概念，属于合法情况。开发的时候可以使用
+            console.log(a5);
+
+            //js 当中的比较：==  != 只是比较变量的值，不比较类型，如果两个变量通过隐式转换，转换后的值相等
+            // 那么就认为是相等的
+            // ===   !== 既要比较变量的值，也要比较类型，如果类型不相同，就直接认为不相等。
+            let a6 = 10;
+            let a7 = '10';
+            console.log(a6 == a7);
+            console.log(a6 === a7);
+
+            //js 里面 && 和 || 返回的就是其中的一个表达式。例如：c = a || b 如果 a 为真，c 就是 a的值
+            // 如果 a 为假，c 就是 表达式 b 的值。这里就衍生出了一种 js 的习惯用法：判定空值
+            let x = null;
+            if (!x) {
+                x = 0;
+            }
+            //上面这段代码，等价于下面这行
+            x = x || 0;
+
+        </script>
+
+        <br>
+    </body>
+</html>

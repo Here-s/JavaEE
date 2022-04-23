@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>CSS</title>
+    </head>
+    <body>
+
+    <!--文本装饰：下划线，删除线。通过 css 来实现就可以了：text-decoration
+      underline 下划线. [常用]   none 啥都没有. 可以给 a 标签去掉下划线.
+      overline 上划线. [不常用]   line-through 删除线 [不常用]  更多的是用来取消已有的东西
+       就是针对 a 标签，因为 a 标签是自带下划线的。-->
+        <style>
+            /*取消下划线*/
+            /*a {*/
+            /*    text-decoration: none;*/
+            /*}*/
+
+            /*下划线*/
+            /*div {*/
+            /*    text-decoration: lime;*/
+            /*}*/
+
+            /*字体缩进*/
+            /*p {*/
+            /*    !*缩进两个字，css 当中表示尺寸的单位：px（像素，最常用）*/
+            /*      em（相对的单位，相对于当前文字的大小。1 em = 16px（一个文字大小）*/
+            /*      em 做单位是很有用的，比如用户修改字体大小。text-indent 还可以取负数，就是反向缩进*!*/
+            /*    font-size: 32px;*/
+            /*    text-indent: 2em;*/
+            /*}*/
+
+            /*行高（顶线到顶线之间的距离）= 字体大小 + 行间距   line-height 设置行高的时候，
+              会同时对上下两个方向都产生影响，上下两个边距都是均等的 而且行高可以实现居中对齐
+              */
+            /*.two {*/
+            /*    line-height: 50px;*/
+            /*}*/
+
+            /*文本居中对其*/
+            /*设置背景属性：背景颜色：background-color  transparent
+              背景透明（应用了父元素的背景色）*/
+            /*body {*/
+            /*    background-color: rgb(60,60,60);*/
+            /*}*/
+            /*div {*/
+            /*    width: 1000px;*/
+            /*    height: 650px;*/
+            /*    font-size: 20px;*/
+            /*    !*这里不设置的话，就是应用父类的背景*!*/
+            /*    !*background-color: cyan;*!*/
+            /*    !*background-color: transparent;*!*/
+
+            /*    !*设置背景图片，设置背景图片之后，默认是一个平铺的效果，图片大小不够之后，就继续铺*/
+            /*      就像铺地砖，把图片挨个进行平铺。通过 background-repeat 来设置平铺方法*!*/
+
+            /*    background-image: url("https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE4wyTn?ver=e56a");*/
+            /*    !*no-repeat 不平铺  repeat-x 水平方向平铺  repeat-y  垂直方向平铺*/
+            /*      背景图和背景颜色可以共存，图片不在的地方，就是背景颜色*!*/
+            /*    background-repeat: no-repeat;*/
+            /*    !*设置背景图位置，可以通过 两个坐标，也可以通过百分比，也可以通过 英文单词（更好用）*!*/
+            /*    background-position: center, center;*/
+
+            /*    !*使用 background-size 来设置背景图片的大小，可以通过数字和英语*/
+            /*     cover（填充，不露出背景色）contain（会露出背景色，拉升到元素大小）*/
+            /*     background 比 img 好用很多，日常开发当中使用 background *!*/
+            /*    background-size: contain;*/
+
+            /*    !*下面是文本颜色。要注意背景颜色和文本颜色不要太接近，不然容易看不清*!*/
+            /*    color: red;*/
+            /*    !*如果元素高度为 150，那么只需要给里面的文字设置高为 150，就居中了*!*/
+            /*    text-align: center;*/
+            /*    line-height: 650px;*/
+            /*}*/
+
+            /*圆角矩形：HTML 里面默认都是长方形，尖锐的样子，变成圆角的样子：border-radius
+             如果让边角的弧度很大的话，就会变成圆形，前提是边框是 正方形（然后 radius 的值
+             就是正方形宽的一半就可以，写成 50% 也可以像这样：border-top-left-radius:10px;
+             border-top-right-radius:20px;
+             border-bottom-right-radius:30px;
+             border-bottom-left-radius:40px;*/
+            /*div {*/
+            /*    width: 200px;*/
+            /*    height: 200px;*/
+            /*    background: cyan;*/
+
+            /*    border-radius: 100px;*/
+            /*}*/
+
+            /*行内元素不能设置大小，显示的大小取决于里面有多少内容，内容多少，影响尺寸大小
+             通过 display:block; 来改为块级元素  display:none; 就是把元素隐藏起来不显示
+             */
+            /*a {*/
+            /*    width: 300px;*/
+            /*    height: 100px;*/
+            /*    display: block;*/
+            /*}*/
+
+            /*div {*/
+            /*    width: 200px;*/
+            /*    height: 100px;*/
+            /*    border: 10px brown dashed;*/
+            /*    box-sizing: border-box;*/
+
+            /*    !*内边距，padding 默认情况下也会撑大元素，所以通过 box-sizing 就可以阻止撑大了*/
+            /*     而且也可以分别设置*!*/
+            /*    padding: 5px;*/
+            /*}*/
+            /*.one {*/
+            /*    margin-bottom: 10px;*/
+            /*}*/
+            /*外边距 margin 在垂直方向会存在 塌陷 的情况，两个元素都设置 外边距的时候，
+            实际的外边距是两者的较大值，并不是相加，在水平方向的话，就是相加.也可以在四个方向都设置
+            外边距基于 margin 可以实现一个 元素的水平居中，不是文本的水平居中
+            文本水平居中：text-align:center   文本的垂直居中：line-height == height
+            元素的水平居中：*/
+            /*.two {*/
+
+            /*}*/
+
+            .parent {
+                width: 100%;
+                height: 200px;
+                background-color: red;
+                display: flex;
+                /*start 表示开始位置（也就是最左边）space-between 元素等分排列 */
+                justify-content: space-around;
+                align-items: center;
+            }
+            .one, .two, .three, .four, .five {
+                width: 100px;
+                height: 100px;
+                background-color: red;
+            }
+            br
+
+        </style>
+        <!--<a href="#">超链接</a>-->
+
+        <!--<div>这是一段话</div>-->
+
+        <!--<p>-->
+        <!--    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab beatae commodi distinctio ducimus eum expedita fugiat harum hic illum impedit minima nam nobis, quibusdam, ratione sequi temporibus totam veniam voluptates.-->
+        <!--    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam asperiores assumenda cumque delectus dignissimos enim, error eum ex, explicabo id ipsum laborum minima non placeat quae quam quidem saepe, veritatis.-->
+
+        <!--</p>-->
+
+        <!--<div class="one">-->
+        <!--    上一行-->
+        <!--</div>-->
+        <!--<div class="two">-->
+        <!--    中间行-->
+        <!--</div>-->
+        <!--<div class="three">-->
+        <!--    下一行-->
+        <!--</div>-->
+
+        <!--<div>-->
+        <!--    这是一段话-->
+        <!--</div>-->
+
+        <!--元素的显示模式：块级元素：独占一行，能设置宽度高度   行内元素：不独占一行，不能设置宽度和高度
+          行内块元素：不独占一行，能够设置宽度高度。  通过 CSS 的display 属性来修改元素的 显示模式
+          常见的用法：把行内的元素，改成块级元素-->
+        <!--<a href="#">超链接</a>-->
+        <!--<a href="#">超链接</a>-->
+        <!--<a href="#">超链接</a>-->
+
+        <!--盒子模型：HTML 的元素，其实是一个矩形，由 外边距，边框，内边距，内容 组成。设置边框的时候
+          很容易导致设置了边框就把元素的尺寸改变了，进一步影响布局，可能之前显示 5 个图片，
+          现在就显示不了了。更常用的操作是，加一个：box-sizing -->
+        <!--<div class="one">-->
+        <!--    这是一段话-->
+        <!--</div>-->
+        <!--<div class="two">-->
+        <!--    这是一段话-->
+        <!--</div>-->
+
+        <!--弹性布局：主要是安排页面上的元素的位置（排列方式）-->
+        <div class="parent">
+            <div class="one">1</div>
+            <div class="two">2</div>
+            <div class="three">3</div>
+            <div class="four">4</div>
+            <div class="five">5</div>
+        </div>
+        <br>
+
+    </body>
+</html>
