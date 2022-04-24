@@ -18,7 +18,12 @@
 
             /*下划线*/
             /*div {*/
-            /*    text-decoration: lime;*/
+            /*    text-decoration: line-through;*/
+            /*}*/
+
+            /*上划线*/
+            /*div {*/
+            /*    text-decoration: overline;*/
             /*}*/
 
             /*字体缩进*/
@@ -99,13 +104,15 @@
             /*div {*/
             /*    width: 200px;*/
             /*    height: 100px;*/
+            /*    !*dashed 虚线边框*!*/
             /*    border: 10px brown dashed;*/
             /*    box-sizing: border-box;*/
 
-            /*    !*内边距，padding 默认情况下也会撑大元素，所以通过 box-sizing 就可以阻止撑大了*/
+            /*    !*内边距，padding 默认情况下也会撑大元素，所以通过 box-sizing 为 border-box 就可以阻止撑大了*/
             /*     而且也可以分别设置*!*/
             /*    padding: 5px;*/
             /*}*/
+
             /*.one {*/
             /*    margin-bottom: 10px;*/
             /*}*/
@@ -113,15 +120,33 @@
             实际的外边距是两者的较大值，并不是相加，在水平方向的话，就是相加.也可以在四个方向都设置
             外边距基于 margin 可以实现一个 元素的水平居中，不是文本的水平居中
             文本水平居中：text-align:center   文本的垂直居中：line-height == height
-            元素的水平居中：*/
+            元素的水平居中：margin（前提是块级元素），元素垂直居中（margin 就不行了）*/
             /*.two {*/
-
+            /*    margin-top: 15px;*/
             /*}*/
 
+            /*.one {*/
+            /*    width: 500px;*/
+            /*    height: 200px;*/
+            /*    background-color: red;*/
+            /*}*/
+            /*.two {*/
+            /*    width: 200px;*/
+            /*    height: 100px;*/
+            /*    background-color: lime;*/
+            /*    !*上下编剧为 0，左右为 浏览器自动适应*!*/
+            /*    margin: 0 auto;*/
+            /*}*/
+
+            /*flex 布局中最常见的三种操作：1、设置为弹性布局：display：flex
+              2、设置为水平方向排列：justify-content
+              3、设置垂直方向排列：align-items 来实现（flex 布局里，一般是一行一行排列的，不涉及到多行的情况）
+              基于这样，就可以实现一些主流的页面布局效果了 */
             .parent {
+                /*宽度 100% 让当前宽度和父元素 body 一样宽*/
                 width: 100%;
                 height: 200px;
-                background-color: red;
+                background-color: gray;
                 display: flex;
                 /*start 表示开始位置（也就是最左边）space-between 元素等分排列 */
                 justify-content: space-around;
@@ -174,6 +199,12 @@
         <!--</div>-->
         <!--<div class="two">-->
         <!--    这是一段话-->
+        <!--</div>-->
+
+        <!--<div class="one">-->
+        <!--    <div class="two">-->
+        <!--        hello-->
+        <!--    </div>-->
         <!--</div>-->
 
         <!--弹性布局：主要是安排页面上的元素的位置（排列方式）-->
