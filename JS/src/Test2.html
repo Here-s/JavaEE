@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+
+        <script>
+
+            function add(x, y) {
+                return x + y;
+            }
+            let result = add(10, 20);
+            console.log(result);
+
+            result = add('hello','world');
+            console.log(result);
+
+            result = add('hello', 10);
+            console.log(result);
+
+            //实现任意个数相加的代码
+            function add1(a, b, c, d, e, f, g) {
+                a = a || 0;
+                b = b || 0;
+                c = c || 0;
+                d = d || 0;
+                e = e || 0;
+                f = f || 0;
+                g = g || 0;
+                return a + b + c + d + e + f + g;
+            }
+            console.log(add1(10, 20));
+            console.log(add1(10, 20, 30));
+            console.log(add1(10, 20, 30, 40));
+
+            // 这里是定义函数，定义和调用 不分前后。
+            function hello() {
+                console.log('hello');
+            };
+            //这里是调用函数
+            hello();
+
+            let f = hello;//后面没有括号，说明这个操作，不是函数调用，而是一个单词的函数的 赋值
+            // 通过 f 就能调用函数
+            console.log(typeof f);
+            f();
+
+            let f2 = function hello2() {
+                console.log('hello2');
+            };
+            f2();
+
+            //匿名函数  lambda 表达式
+            let f3 = function () {
+                console.log('not fun')
+            };
+            f3();
+
+            //JS 当中，支持无限套娃，就是 function 套 function
+            let num = 60;
+            function hello3() {
+                console.log(num);
+            }
+            hello3();
+
+        </script>
+    </body>
+</html>

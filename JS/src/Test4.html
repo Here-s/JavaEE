@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+      <!--<div class="one">-->
+      <!--  hello one-->
+      <!--</div>-->
+
+      <!--<div class="two">-->
+      <!--  hello two-->
+      <!--</div>-->
+
+      <!--<ul>-->
+      <!--  <li>aaa</li>-->
+      <!--  <li>bbb</li>-->
+      <!--  <li>ccc</li>-->
+      <!--  <li>ddd</li>-->
+      <!--</ul>-->
+
+      <!--<button>这是一个按钮</button>-->
+
+      <!--<button onclick="f()">又是一个按钮</button>-->
+
+      <div id="screen">
+        <ul>
+          <li>aaa</li>
+          <li>aaa</li>
+          <li>aaa</li>
+        </ul>
+      </div>
+      <div class="id">hello world</div>
+
+      <button id="btn">这是按钮</button>
+
+      <!--DOM API-->
+      <script>
+        //querySelector 的参数，就是一个 CSS 的选择器。当匹配到了多个元素的时候，此时 返回的对象，
+        // 就是匹配的第一个元素。如果要全选中的话，就要使用 querySelectorAll，这样返回的就是一个数组
+        // 准确的说，返回的不是真正的原生数组，而是一个对象，只不过有 length，而且可以通过 下标来访问内部因素
+        // 使用起来和数组非常相似（一模一样），就是叫做”伪数组“
+        // let div = document.querySelector('.one');
+        // //输出 div 对象
+        // console.log(div);
+        //
+        // //# 是 id 选择器
+        // let obj = document.querySelector('#two');
+        // console.log(obj);
+        //
+        // let obj2 = document.querySelector('ul li');
+        // console.log(obj2)
+        //
+        // //事件：就是浏览器对于 用户操作 行为就行的 统称，大部分是用户操作产生的，JS 主要就是在不同的事情中，
+        // // 进行不同的处理，事件的三个要素：1、事件源：哪个 HTML 产生的事件
+        //
+        // //这种是最常用的一种方式
+        // let button = document.querySelector('button');
+        // button.onclick = function () {
+        //   alert('hello');
+        // }
+        //
+        // //回调函数，不会立即调用，而是在合适的时机 被 库/框架 自动调用
+        // button.onclick = function () {
+        //   alert('hello');
+        // }
+        //
+        // function f () {
+        //   alert('hello');
+        // }
+
+        //操作元素（操作 = 获取 + 修改）
+        // 1、操作元素内容：通过 对象 里面的一个属性 innerHTML 来实现
+        let btn = document.querySelector('#btn');
+        btn.onclick = function () {
+          let screen = document.querySelector('#screen');
+          console.log(screen.innerHTML);
+        }
+        // 2、操作元素的属性
+        // 3、操作元素的样式
+
+
+      </script>
+      <br>
+    </body>
+</html>
