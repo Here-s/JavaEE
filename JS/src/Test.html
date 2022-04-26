@@ -85,11 +85,50 @@
             //这里的结果是 0.5 因为 JS 当中不区分整数和小数，都是 number，所以是 0.5
             console.log(1/2);
 
-            //数组的创建
-            let arr = new Array();
+            //数组的创建，数组里面还可以是 数组
+            let arr4 = new Array();
             let arr1 = [];
             let arr2 = [1,2,3,4];
-            let arr3 = [1,'hello',null,undefined,true];
+            let arr3 = [1,'hello',null,undefined,true,[]];
+            //打印数组
+            console.log(arr2);
+
+            //获取数组元素，访问一个越界的元素的时候，会返回 undefined
+            let arr5 = [1, 2, 3, 4];
+            console.log(arr5[2]);
+            console.log(arr5[3]);
+            console.log(arr5[100]);
+            console.log(arr5[-1]);
+
+            //这样也可以访问
+            arr5[100] = 10;
+            arr5[-1] = 20;//此时 -1 不如理解为一个属性，并没有影响到数组的属性
+            arr5['hello'] = 10;//JS 当中的数组，还可以当作 map 来使用
+            //JS 中的数组，更像是一个对象，是可以在运行的时候，给对象新增属性的，
+            arr5.hellos = 11;
+            console.log(arr5);
+            console.log(arr5['hellos']);
+            console.log(arr5.hellos);
+
+            console.log(arr5[100]);
+            console.log(arr5);
+
+            //获取数组长度
+            console.log(arr5.length);
+            //数组长度可以修改，先改短，然后再改长，就是空白值了
+            arr5.length = 10;
+            console.log(arr5);
+
+            //往数组当作新增操作，最常见的是 push
+            let arr6 = [];
+            for (let i = 0; i < 10; i++) {
+                arr6.push(i);
+            }
+            console.log(arr6);
+            //删除数组的元素，splice 针对数组中的某个区间进行替换，既可以删除，也可以用于插入元素
+            arr6.splice(2,3,100,200,300,400);
+            console.log(arr6);
+
         </script>
 
         <br>

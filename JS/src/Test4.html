@@ -24,16 +24,22 @@
 
       <!--<button onclick="f()">又是一个按钮</button>-->
 
-      <div id="screen">
-        <ul>
-          <li>aaa</li>
-          <li>aaa</li>
-          <li>aaa</li>
-        </ul>
-      </div>
-      <div class="id">hello world</div>
+      <!--<div id="screen">-->
+      <!--  <ul>-->
+      <!--    <li>aaa</li>-->
+      <!--    <li>aaa</li>-->
+      <!--    <li>aaa</li>-->
+      <!--  </ul>-->
+      <!--</div>-->
+      <!--<div id="screen">hello world</div>-->
 
-      <button id="btn">这是按钮</button>
+      <!--<button id="btn">这是获取内容按钮</button>-->
+      <!--<button id="btn2">这是修改内容的按钮</button>-->
+
+      <!--<div id="screen">0</div>-->
+      <!--input 作为一个 单标签，没有 innerHTML 属性，所以通过 input 的 value 属性，来获取到内部的内容-->
+      <input type="text" id="screen" value="0">
+      <button id="plus">+</button>
 
       <!--DOM API-->
       <script>
@@ -53,7 +59,7 @@
         // console.log(obj2)
         //
         // //事件：就是浏览器对于 用户操作 行为就行的 统称，大部分是用户操作产生的，JS 主要就是在不同的事情中，
-        // // 进行不同的处理，事件的三个要素：1、事件源：哪个 HTML 产生的事件
+        // // 进行不同的处理，事件的三个要素：1、事件源：哪个 HTML 产生的事件,JS 中的很多代码，都是通过 事件 来触发
         //
         // //这种是最常用的一种方式
         // let button = document.querySelector('button');
@@ -72,10 +78,30 @@
 
         //操作元素（操作 = 获取 + 修改）
         // 1、操作元素内容：通过 对象 里面的一个属性 innerHTML 来实现
-        let btn = document.querySelector('#btn');
-        btn.onclick = function () {
+        // let btn = document.querySelector('#btn');
+        // btn.onclick = function () {
+        //   let screen = document.querySelector('#screen');
+        //   console.log(screen.innerHTML);
+        // }
+        // let btn2 = document.querySelector('#btn2');
+        // btn2.onclick = function () {
+        //   let screen = document.querySelector('#screen');
+        //   screen.innerHTML = '<h1>修改后的内容<h1></h1>';
+        // }
+
+        let plusBtn = document.querySelector('#plus');
+        plusBtn.onclick = function () {
           let screen = document.querySelector('#screen');
-          console.log(screen.innerHTML);
+          //这里得到的是 string，所以要转化成整数
+          // let val = screen.innerHTML;
+
+          let val = screen.value;//获取到 input 的 value 值。
+          val = parseInt(val);//转换为整数，因为 JS 是动态类型，所以换成数字之后，仍然可以赋值
+          console.log(typeof (val));
+          val += 1;
+          // screen.innerHTML = val;
+
+          screen.value = val;//再把修改后的 value 值输出
         }
         // 2、操作元素的属性
         // 3、操作元素的样式

@@ -58,12 +58,30 @@
             };
             f3();
 
+            //在 JS 当中，{} 内的代码，是可以访问到 {} 外面的代码的
+            let num1 = 32;
+            {
+                console.log(num1);
+            }
+
             //JS 当中，支持无限套娃，就是 function 套 function
             let num = 60;
             function hello3() {
                 console.log(num);
             }
             hello3();
+
+            //在 JS 当中，是支持 逐级向上 查找的，当前在 hello5 函数里，没有 num 变量，然后再往上找 hello4
+            // 里面也没有，那么再往上找，就到了全局里，就找到了 num ，如果没找到就会报错。在作用域的不同节点上，
+            // 存在多个同名的变量咋办，从里往外找，先找到谁算谁
+            function hello4() {
+                function hello5() {
+                    console.log(num);
+                }
+                hello5();
+            }
+            hello4();
+
 
         </script>
     </body>
