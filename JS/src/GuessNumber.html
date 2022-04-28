@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>猜数字游戏</title>
+    </head>
+    <body>
+
+        <button id="resetBtn">重新开始一局游戏</button>
+        <br>
+        <span>要猜的数字</span>
+        <input type="text">
+        <button id="guessBtn">猜</button>
+        <br>
+        <span>结果：</span><span id="result"></span>
+        <br>
+        <span>已经猜的次数：</span><span id="guessCount">0</span>
+
+
+        <script>
+            //把上面需要用到的元素全拿到
+            let resetBtn = document.querySelector('#resetBtn');
+            let input = document.querySelector('input');
+            let guessBtn = document.querySelector('#guessBtn');
+            let resultSpan = document.querySelector('#result');
+            let guessCountSpan = document.querySelector('#guessCount');
+
+            //生成一个 1-100 的随机数，JS 生成的 随机数是 0-1 之间随机的小数，包含 0 不包含 1
+            let toGuess = Math.floor(Math.random()*100)+1;
+            console.log(toGuess);
+
+            //实现点击 猜 按钮的逻辑
+            guessBtn.onclick = function () {
+                //读取输入内容，并转化成整数
+                if (input.value == '') {
+                    return;
+                }
+                let curNum = parseInt(input.value);
+                //判断大小关系
+                if (curNum < toGuess) {
+                    resultSpan.innerHTML = '低了';
+                    resultSpan.style.color = 'red';
+                } else if (curNum > toGuess) {
+                    resultSpan.innerHTML = '高了';
+                    resultSpan.style.color = 'red';
+                } else {
+                    resultSpan.innerHTML = '猜对了';
+                    resultSpan.style.color = 'green';
+                }
+
+                //更新猜的次数
+                let guessCount = parseInt(guessCountSpan.innerHTML);
+                guessCountSpan.innerHTML = guessCount + 1;
+            }
+
+            //实现刷新页面重新开始的逻辑
+            resetBtn.onclick = function () {
+                //让页面刷新即可
+                //location 是和 document 并列关系的对象
+                //location 用来控制页面的 链接/地址 通过 reload 操作就是 刷新
+                location.reload();
+            }
+        </script>
+
+
+    </body>
+</html>

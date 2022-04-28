@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>DOMAPI</title>
+    </head>
+    <body>
+
+        <!--一个 HTML 标签里面，能写哪些属性，就同样可以通过 JS 中的 DOM 对象来获取到一样的属性
+         可以通过 console.dir 这个方法，打印出一个 dom 对象的全部属性和值-->
+        <!--<img src="https://tse4-mm.cn.bing.net/th/id/OIP-C.D5bn8h4fBKriHDbO3tK5NgHaJ4?w=138&h=184&c=7&r=0&o=5&pid=1.7" alt="" title="" id="1">-->
+
+        <!--<input type="button" value="播放">-->
+        <!--<br>-->
+
+        <!--实现全选标签-->
+        <!--<input type="checkbox" id="all">我全都要 <br>-->
+        <!--<input type="checkbox" class="ch">aaa <br>-->
+        <!--<input type="checkbox" class="ch">bbb <br>-->
+        <!--<input type="checkbox" class="ch">ccc <br>-->
+        <!--<input type="checkbox" class="ch">ddd <br>-->
+
+        <!--<div style="font-size: 20px">这是一个文本</div>-->
+        <!--<br>-->
+
+        <!--<style>-->
+        <!--    .light {-->
+        <!--        background-color: white;-->
+        <!--        color: black;-->
+        <!--    }-->
+
+        <!--    .dark {-->
+        <!--        background-color: black;-->
+        <!--        color: white;-->
+        <!--    }-->
+        <!--</style>-->
+
+        <!--<div class="light" style="height: 500px">这是一段话</div>-->
+        <!--<button>关灯</button>-->
+
+        <div class="container"></div>
+        <button>删除 div</button>
+
+        <script>
+
+            //操作对象属性，通过
+            // let img = document.querySelector('img');
+            // img.onclick = function () {
+            //     // console.log(img.src);
+            //     // if (img.src.indexOf('D5bn8h4fBKriHDbO3tK5NgHaJ4') >= 0) {
+            //     //     img.src = 'https://tse1-mm.cn.bing.net/th/id/OIP-C.0cx19GDKi2HaGJUtnrihWAHaHc?w=183&h=184&c=7&r=0&o=5&pid=1.7';
+            //     // } else if (img.src.indexOf('0cx19GDKi2HaGJUtnrihWAHaHc') >= 0) {
+            //     //     img.src = 'https://tse4-mm.cn.bing.net/th/id/OIP-C.D5bn8h4fBKriHDbO3tK5NgHaJ4?w=138&h=184&c=7&r=0&o=5&pid=1.7';
+            //     // }
+            //
+            //     //通过 console.dir 来运行
+            //     console.dir(img);
+            //     if (img.src.indexOf('D5bn8h4fBKriHDbO3tK5NgHaJ4') >= 0) {
+            //         img.src = 'https://tse1-mm.cn.bing.net/th/id/OIP-C.0cx19GDKi2HaGJUtnrihWAHaHc?w=183&h=184&c=7&r=0&o=5&pid=1.7';
+            //     } else if (img.src.indexOf('0cx19GDKi2HaGJUtnrihWAHaHc') >= 0) {
+            //         img.src = 'https://tse4-mm.cn.bing.net/th/id/OIP-C.D5bn8h4fBKriHDbO3tK5NgHaJ4?w=138&h=184&c=7&r=0&o=5&pid=1.7';
+            //     }
+            // }
+
+            //获取/修改 表单属性
+
+            //实现 播放暂停 效果
+            // let input = document.querySelector('input');
+            // input.onclick = function () {
+            //     if (input.value == '播放') {
+            //         input.value = '暂停';
+            //     } else if (input.value == '暂停') {
+            //         input.value = '播放';
+            //     }
+            // }
+
+            //实现全选表单的效果
+            //1、获取元素
+            // let all = document.querySelector('#all');
+            // let ch = document.querySelectorAll('.ch');
+            // //2、给 all 注册点击事件
+            // all.onclick = function () {
+            //     for (let i = 0; i < ch.length; i++) {
+            //         //all.checked 就是 all 这个复选框的选中状态
+            //         ch[i].checked = all.checked;
+            //     }
+            // }
+            //3、针对每个 ch 注册点击事件，实现对 all 的取消操作
+            // for (let i = 0; i < ch.length; i++) {
+            //     ch[i].onclick = function () {
+            //         all.checked = checkCh(ch);
+            //     }
+            // }
+            //
+            // function checkCh(ch) {
+            //     //判断是不是所有的 ch 都被选中
+            //     for (let i = 0; i < ch.length; i++) {
+            //         if (!ch[i].checked) {
+            //             //只要有一个没被选中，就让 all 是未选中状态
+            //             return '';
+            //         }
+            //     }
+            //     //遍历一圈，发现都被选中了，就让 all 也是选中状态
+            //     return 'checked';
+            // }
+
+
+            //操作元素样式，本质上是操作元素属性
+            //style 对应行内样式（直接把样式写到 style 里面）
+            // let div = document.querySelector('div');
+            // div.onclick = function () {
+            //     //先获取到当前字体大小
+            //     console.log(parseInt(div.style.fontSize));
+            //     let fontsize = parseInt(div.style.fontSize);
+            //     //在当前字体大小基础上，增加 5px
+            //     fontsize += 5;
+            //     div.style.fontSize = fontsize + 'px';
+            // }
+
+            //className/classList 对应内部样式/外部样式 应用了 一个/一组 CSS 类名
+
+            //如果要修改的样式比较多，通过 style 来修改就麻烦了，可以借助 CSS 类来修改
+            // 夜间模式（关灯/开灯）
+            // let div = document.querySelector('div');
+            // let button = document.querySelector('button');
+            // button.onclick = function () {
+            //     if (div.className == 'light') {
+            //         div.className = 'dark';
+            //         button.innerHTML = '开灯';
+            //     } else if (div.className == 'dark') {
+            //         div.className = 'light';
+            //         button.innerHTML = '关灯';
+            //     }
+            // }
+
+            //针对 元素 操作，更多的是操作元素的属性（元素本身没有发生变化）
+            //针对 节点 的操作，其实是 新增/删除节点
+            //1、创建新节点，此处创建的节点，并没有被挂在 dom 树上，因此在浏览器当中，是显示不出来的
+            let newDiv = document.createElement('div');
+            newDiv.id = 'newDiv';
+            newDiv.className = 'one';
+            newDiv.innerHTML = 'hello';
+            console.log(newDiv);
+            //2、把节点挂在 dom 树上。使用 appendChild 把节点插入到某个节点上面
+            let container = document.querySelector('.container');
+            container.appendChild(newDiv);
+
+
+        </script>
+
+    </body>
+</html>
