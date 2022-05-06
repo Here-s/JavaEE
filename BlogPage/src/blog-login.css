@@ -1,0 +1,79 @@
+/*用于登陆界面*/
+
+.login-container {
+    width: 100%;
+    height: calc(100% - 50px);
+
+    /*让子元素，垂直水平居中*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-dialog {
+    width: 350px;
+    height: 350px;
+
+    background-color: rgba(255,255,255,0.6);
+    border-radius: 10px;
+}
+
+.login-dialog h3 {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.login-dialog .row {
+    height: 50px;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-dialog .row span {
+    display: block;
+    width: 100px;
+    font-size: 20px;
+}
+
+#username, #password {
+    width: 200px;
+    height: 25px;
+    font-size: 20px;
+    line-height: 40px;
+    padding-left: 10px;
+    border-radius: 10px;
+
+    /*去掉边框*/
+    border: none;
+    /*去掉下划线*/
+    outline: none;
+}
+
+.row button {
+    width: 250px;
+    height: 40px;
+    border-radius: 10px;
+    color: white;
+    background-color: rgb(0,128,0);
+    border: none;
+    outline: none;
+    margin-top: 50px;
+}
+
+.row button {}
+
+
+
+
+
+
+
+
+
+
+
+
+
