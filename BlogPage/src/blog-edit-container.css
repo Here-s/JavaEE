@@ -44,7 +44,14 @@
     background-color: #666;
 }
 
-
+#editor {
+    border-radius: 10px;
+    /*只是针对当前元素进行设置，不会影响到子元素
+     opacity 会影响到子元素，就是父类设计的话，
+     子类也会有影响*/
+    /*background-color: rgba(255, 255, 255, 0.8);*/
+    opacity: 60%;
+}
 
 
 

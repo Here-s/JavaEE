@@ -63,7 +63,9 @@
     margin-top: 50px;
 }
 
-.row button {}
+.row button:active {
+    background-color: #666;
+}
 
 
 
