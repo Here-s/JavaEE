@@ -27,6 +27,31 @@ public class test1 {
     // URL：
     // URL小结：对于 URL 来说，里面的结构看起来比较复杂，其实最重要的，和开发最关系紧密的，
     //  主要就是 四个部分：ip地址/域名  端口号  带层次结构的路径  query string 查询字符串
+
+    //URL encode/decode  当 query string 当中包含了特殊字符，就需要对特殊字符进行转义
+    // 转义的过程，就叫做 url encode 反之，吧转义之后的内容还原回来，就叫做 url decode
+    //在进行前后端分离的时候，一定要对特殊字符进行转码，不转码的时候，很容易出现问题
+
+    //HTTP 请求：
+    // 2、方法（HTTP 协议的方法很多，最最最常用的就是 GET 和 POST ：GET（获取）   POST（发送）
+
+    //Header 里面的一些键值对：不同的键值对表示了不同的含义
+    // Host：表示服务器的主机和端口   域名是可以通过 DNS 来转成 IP 地址的。
+    // Content-Length：表示 body 中数据的长度。HTTP 也是基于 TCP 的协议，TCP 是面向字节流的，有粘包问题
+    //  粘包，可以通过：1、使用分隔符  2、使用长度  来解决粘包
+    // Content-Type：表示请求的 body 中的数据格式，一般 POST 都是带 body，一般都是基于 POST 来实现的
+    //  POST 数据在 body 中，用户是不能直接看到的，body 里你放啥东西对于用户的影响都是非常小的
+    //  通过 加密 来保证安全。请求中的 body 很常用的是 json
+    // Referer：表示当前的页面，是由哪个页面跳转来的
+    // Cookie：浏览器为了安全，默认情况下是不能让页面 JS 访问到 用户电脑 上面的 文件系统的。
+    //  Cookie，就是浏览器给页面提供一种能够持久化存储数据的机制
+
+    // Session：
+
+    // HTTP响应：状态码：200 OK（表示顺利获取内容）   403 Forbidden（没有权限）
+    //   405 Method Not Allowed  只支持 POST 访问，不支持 GET
+    //   500 服务器出了问题，也就是 服务器 出了 BUG   504 Gateway Timeout 服务器太忙了
+    //   302 Move temporarily 重定向，重定向响应中，一般都是需要 location 属性的
     public static void main(String[] args) {
 
     }
