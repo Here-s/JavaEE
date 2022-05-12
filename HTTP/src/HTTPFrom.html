@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>From</title>
+    </head>
+    <body>
+
+        <!--前面是表示 把请求提交给哪个服务器，后面是表示通过 GET 来提交参数，不区分大小写
+         from 表单，给服务器提交的数据，本质上是键值对，使用 form 一定会涉及到页面跳转，
+         浏览器要加载出 全新页面-->
+        <form action="https://www.sogou.com/" method="get">
+            <input type="text" name="username">
+            <input type="password" name="password">
+            <input type="submit" value="提交">
+        </form>
+
+    </body>
+</html>

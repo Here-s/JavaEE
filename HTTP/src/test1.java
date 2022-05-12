@@ -39,7 +39,7 @@ public class test1 {
     // Host：表示服务器的主机和端口   域名是可以通过 DNS 来转成 IP 地址的。
     // Content-Length：表示 body 中数据的长度。HTTP 也是基于 TCP 的协议，TCP 是面向字节流的，有粘包问题
     //  粘包，可以通过：1、使用分隔符  2、使用长度  来解决粘包
-    // Content-Type：表示请求的 body 中的数据格式，一般 POST 都是带 body，一般都是基于 POST 来实现的
+    // Content- Type：表示请求的 body 中的数据格式，一般 POST 都是带 body，一般都是基于 POST 来实现的
     //  POST 数据在 body 中，用户是不能直接看到的，body 里你放啥东西对于用户的影响都是非常小的
     //  通过 加密 来保证安全。请求中的 body 很常用的是 json
     // Referer：表示当前的页面，是由哪个页面跳转来的
@@ -52,6 +52,10 @@ public class test1 {
     //   405 Method Not Allowed  只支持 POST 访问，不支持 GET
     //   500 服务器出了问题，也就是 服务器 出了 BUG   504 Gateway Timeout 服务器太忙了
     //   302 Move temporarily 重定向，重定向响应中，一般都是需要 location 属性的
+
+    //通过代码构造 HTTP 请求
+    // 1、基于 HTML/JS  就是基于 from 表单 或者 基于 Ajax
+    // 2、基于 Java，就是基于 socket
     public static void main(String[] args) {
 
     }
