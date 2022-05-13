@@ -8,12 +8,22 @@
 
       <!--Ajax 是基于异步等待的方式来进行的。先构造一个 HTTP 请求，发给服务器，但是浏览器不确定
        服务器啥时候才有响应，于是浏览器就先执行其他代码，等服务器响应有了之后，再由浏览器通知对应
-       的 JS 代码，以回调函数的方式来处理响应-->
+       的 JS 代码，以回调函数的方式来处理响应。不过 浏览器 会禁止 Ajax 进行跨域访问-->
         <script src="jquery.js"></script>
         <script>
             $.ajax({
-                
-            })
+                type:'get',
+                url:'https://www.sogou.com/',
+                success:function (body) {
+                    //success 对应一个 回调函数，这个函数会在正确获取到 HTTP 响应之后，来调用
+                    // 也就是 异步 响应回来就调用，反之就不调用
+                    console.log("获取到响应数据！"+body);
+                },
+                error:function () {
+                    //会在请求失败之后调用这个函数
+                    console.log("获取响应失败")
+                }
+            });
         </script>
     </body>
 </html>
