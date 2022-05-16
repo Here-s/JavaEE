@@ -21,7 +21,21 @@
             <version>5.1.39</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
+-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
+<!--    打包为 war 包-->
+    <packaging>war</packaging>
 
+<!--    指定打出 war 包的名字-->
+    <build>
+        <finalName>hello</finalName>
+    </build>
 </project>
