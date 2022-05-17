@@ -11,10 +11,11 @@ import java.io.IOException;
 public class HelloServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //创建 doGet 的时候，一定要删掉 父类的 super
 
         //这个是让服务器在 控制台 上面打印 hello word
         System.out.println("hello word");
         //把这个 字符串 放入 HTTP 响应的 body 中，浏览器就会把 body 的内容写到
-        resp.getWriter().write("hello word");
+        resp.getWriter().write("hello word"+System.currentTimeMillis());
     }
 }
