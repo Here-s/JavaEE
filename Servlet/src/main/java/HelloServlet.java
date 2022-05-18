@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
 //这个注解就是 把当前的 HelloServlet 这个类，和 HTTP 请求中的 URL 里面路径带有 /hello
 // 这样的请求，给关联起来了
 @WebServlet("/hello")
