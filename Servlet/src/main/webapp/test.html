@@ -5,6 +5,47 @@
         <title>Test</title>
     </head>
     <body>
-        <form action=""></form>
+
+        <!--使用 form 表单构造请求-->
+        <!--<form action="postGetParameter" method="post">-->
+        <!--    <input type="text" name="userId">-->
+        <!--    <input type="text" name="classId">-->
+        <!--    <input type="submit" value="提交">-->
+        <!--</form>-->
+
+        <!--使用 json 构造请求-->
+        <input type="text" id="userId">
+        <input type="text" id="classId">
+        <input type="button" value="提交" id="submit">
+
+        <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script>
+            // $.ajax({
+            //     type: 'post',
+            //     url: 'method',
+            //     success: function(body) {
+            //         console.log(body);
+            //     }
+            // });
+
+            let userIdInput = document.querySelector('#userId');
+            let classIdInput = document.querySelector('#classId');
+            let button = document.querySelector('#submit');
+            button.onclick = function () {
+                $.ajax({
+                    type: 'post',
+                    url: 'postJson',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        userId: userIdInput.value,
+                        classId: classIdInput.value
+                    }),
+                    success: function(body) {
+                        console.log(body);
+                    }
+                });
+            }
+        </script>
+
     </body>
 </html>

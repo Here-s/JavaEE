@@ -5,11 +5,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/autoRefresh")
-public class AutoRefreshServlet extends HttpServlet {
+@WebServlet("/redirect")
+public class RedirectServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setHeader("Refresh","1");
-        resp.getWriter().write("timeStamp"+System.currentTimeMillis());
+        //返回 302 重定向响应，然后跳转到 搜狗
+//        resp.setStatus(302);
+//        resp.setHeader("Location","https://www.sogou.com");
+
+        //Servlet 提供了一个更简单的重定向的方法
+        resp.sendRedirect("https://www.sogou.com");
     }
 }
