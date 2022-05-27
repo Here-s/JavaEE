@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>表白墙</title>
+    </head>
+    <body>
+
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            .container {
+                width: 100%;
+            }
+
+            h3 {
+                text-align: center;
+                padding: 30px;
+                font-size: 24px;
+            }
+
+            p {
+                text-align: center;
+                color: #caccc3;
+                padding: 10px 0;
+            }
+
+            .row {
+                width: 400px;
+                height: 50px;
+                margin: 0 auto;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .row span {
+                width: 100px;
+                font-size: 20px;
+            }
+            .row input {
+                width: 300px;
+                height: 40px;
+                line-height: 40px;
+                font-size: 20px;
+                text-indent: 0.5em;
+
+                /*去掉输入框的轮廓线*/
+                outline: none;
+            }
+
+            .row #submit {
+                width: 200px;
+                height: 40px;
+                font-size: 20px;
+                line-height: 40px;
+                margin: 0 auto;
+                color: white;
+                background-color: orange;
+
+                /*去掉边框*/
+                border: none;
+                border-radius: 10px;
+            }
+
+            .row #submit:active{
+                background-color: #caccc3;
+            }
+        </style>
+
+        <div class="container">
+            <h3>表白墙</h3>
+            <p>输入后点击提交，会将信息显示在表格中</p>
+            <div class="row">
+                <span>谁：</span>
+                <input type="text">
+            </div>
+            <div class="row">
+                <span>对谁：</span>
+                <input type="text">
+            </div>
+            <div class="row">
+                <span>说：</span>
+                <input type="text">
+            </div>
+            <div class="row">
+                <button id="submit">提交</button>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <script>
+            //加入 ajax 的代码，点击提交的时候，Ajax 要构造数据发送给服务器，页面加载的时候，从服务器
+            // 获取消息列表，并在页面上直接显示
+
+
+            // 当用户点击 submit 的时候，就会获取到 input 中的内容，从而把内容构造成一个 div，插入到页面末尾
+            let submitBtn = document.querySelector('#submit');
+            submitBtn.onclick = function () {
+                //1、获取到 3 个 input 中的内容
+                let inputs = document.querySelectorAll('input');
+                let from = inputs[0].value;
+                let to = inputs[1].value;
+                let msg = inputs[2].value;
+                if (from == '' || to == '' || msg == '') {
+                    //说明用户还没填写完，暂时不提交数据
+                    return;
+                }
+                //生成一个 新的 div，内容就是 input 里面的内容，把这个新的 div 加到页面中
+                let div = document.createElement('div');
+                div.innerHTML = from + ' 对 ' + to + ' 说：' + msg;
+                div.className = 'row';
+                let container = document.querySelector('.container');
+                container.appendChild(div);
+
+                //提交之后清空输入框的内容
+                for (let i = 0; i < inputs.length; i++) {
+                    inputs[i].value = '';
+                }
+
+                //上面的内容 是根据 div.row 来保存咱们提交的消息，这些 div.row 是挂在 DOM 树上的，
+                //就是在 内存中，容易失去的，一旦页面刷新/关闭 此时，之前内存中保存的数据就没了
+                // 为解决上述问题，有几下几种解决方案：
+                //1、可以把提交的数据，保存到浏览器本地（浏览器提供了 localStorage/indexD8 这样的机制，
+                // 能够实现本地存储）本质上，是通过浏览器，把要保存的数据，存到当前电脑上面的硬盘上
+                //2、可以把提交的数据，通过网络通信，传输给服务器，由服务器进行保存：
+                // 1）服务器保存在内存里
+                // 2）服务器保存在文件中
+                // 3）服务器保存在数据库里
+
+                //把当前获取到的输入框的内容，构造成一个 http post 请求，通过 Ajax 发给 服务器
+                let body = {
+                    from:from,
+                    to:to,
+                    message:msg
+                };
+                $.ajax({
+                    type:"post",
+                    url:"message",
+                    contentType:"application/json;charset=utf8",
+                    data:msg
+                });
+            }
+        </script>
+
+    </body>
+</html>
