@@ -93,11 +93,29 @@
             </div>
         </div>
 
-        <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
             //加入 ajax 的代码，点击提交的时候，Ajax 要构造数据发送给服务器，页面加载的时候，从服务器
             // 获取消息列表，并在页面上直接显示
-
+            function getMessages() {
+                $.ajax({
+                   type: 'get',
+                   url: 'message',
+                   success: function (body) {
+                       //当前 body 已经是一个 js 对象数组了，Ajax 会根据响应的 content type 自动解析
+                       //依次来取数组中的每个元素
+                       for (let message of body) {
+                           let div = document.createElement('div');
+                           div.innerHTML = message.from + ' 对 ' + message.to + ' 说：' + message.message;
+                           div.className = 'row';
+                           let container = document.querySelector('.container');
+                           container.appendChild(div);
+                       }
+                   }
+                });
+            }
+            //加上函数调用
+            getMessages();
 
             // 当用户点击 submit 的时候，就会获取到 input 中的内容，从而把内容构造成一个 div，插入到页面末尾
             let submitBtn = document.querySelector('#submit');
@@ -143,7 +161,13 @@
                     type:"post",
                     url:"message",
                     contentType:"application/json;charset=utf8",
-                    data:msg
+                    data:JSON.stringify(body),
+                    success: function (body) {
+                        alert("消息提交成功！");
+                    },
+                    error: function () {
+                        alert("消息提交失败！");
+                    }
                 });
             }
         </script>
