@@ -6,6 +6,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,9 +52,49 @@ public class MessageServlet extends HttpServlet {
 
     private void save(Message message) {
         //把一条数据保存到数据库当中
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            //建立连接
+            connection = DBUtil.getConnection();
+            //构造SQL
+            String sql = "insert into message values(?,?,?)";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1,message.from);
+            statement.setString(2,message.to);
+            statement.setString(3,message.message);
+            //执行 sql
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBUtil.close(connection, statement, null);
+        }
     }
 
     private List<Message> load() {
         //从数据库当中获取到所有的消息
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<Message> messages = new ArrayList<>();
+        try {
+            connection = DBUtil.getConnection();
+            String sql = "select * from message";
+            statement = connection.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Message message = new Message();
+                message. from = resultSet.getString("from");
+                message.to = resultSet.getString("to");
+                message.message = resultSet.getString("message");
+                messages.add(message);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBUtil.close(connection, statement, resultSet);
+        }
+        return messages;
     }
 }
