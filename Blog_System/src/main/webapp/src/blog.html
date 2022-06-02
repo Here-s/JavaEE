@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>博客页面</title>
+        <link rel="stylesheet" href="common.css">
+        <link rel="stylesheet" href="blog_list.css">
+    </head>
+    <body>
+
+        <!--导航栏-->
+        <div class="nav">
+            <img src="../img/头像.jpg" alt="">
+            <span>我的博客系统</span>
+            <span class="spacer"></span>
+            <a href="blog.html">主页</a>
+            <a href="blog-write.html">写博客</a>
+            <a href="blog_login.html">登录</a>
+            <a href="#">注销</a>
+        </div>
+
+        <!--这里作为页面的中心,div 元素默认独占一行，要多个
+         div 在一行内排列，就需要 flex 布局了-->
+        <div class="container">
+            <!--左边个人信息-->
+            <div class="left">
+                <!--表示整个用户信息区域-->
+                <div class="card">
+                    <img src="../img/头像.jpg" alt="">
+                    <h3>小阿鹏</h3>
+                    <a href="#">GitHub 地址</a>
+
+                    <div class="counter">
+                        <span>文章</span>
+                        <span>分类</span>
+                    </div>
+
+                    <div class="counter">
+                        <span>2</span>
+                        <span>1</span>
+                    </div>
+                </div>
+            </div>
+
+            <!--右边内容详情-->
+            <div class="right">
+                <!--对应一个博客-->
+                <div class="blog">
+                    <div class="title">
+                        我的第一篇博客
+                    </div>
+                    <div class="date">
+                        2022-05-05 20:52:43
+                    </div>
+                    <div class="desc">
+                        从今天起，我要认真敲代码 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aut cumque deleniti, doloremque eius expedita harum illo incidunt laudantium numquam optio pariatur provident quas quibusdam quisquam quo tenetur veniam vitae.
+                    </div>
+
+                    <a href="blog_detail.html">查看全文 &gt;&gt; </a>
+                </div>
+
+                <div class="blog">
+                    <div class="title">
+                        我的第二篇博客
+                    </div>
+                    <div class="date">
+                        2022-05-05 20:52:43
+                    </div>
+                    <div class="desc">
+                        从今天起，我要认真敲代码 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid architecto atque autem distinctio dolorum eum explicabo id quis temporibus. Delectus fugit maxime natus necessitatibus neque? Adipisci alias consectetur rem?
+                    </div>
+
+                    <a href="#">查看全文 &gt;&gt; </a>
+                </div>
+            </div>
+        </div>
+
+        <!--在左右中间，加入一个没有内容的空白元素，
+          设置一个比较大的宽度来进行占位，不能自动适应不同宽度的浏览器-->
+
+    </body>
+</html>

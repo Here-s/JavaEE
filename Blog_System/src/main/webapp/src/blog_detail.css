@@ -1,0 +1,28 @@
+/*博客详情页CSS*/
+
+
+.blog-content {
+    padding: 30px;
+}
+
+.blog-content h3 {
+    text-align: center;
+    padding: 15px 0;
+}
+
+.blog-content .data {
+    text-align: center;
+    color: rgb(26, 229, 11);
+    padding: 15px 0;
+}
+
+.blog-content p {
+    text-indent: 2em;
+    padding: 10px 0;
+}
+
+/*给 right 加一个 CSS 属性，overflow:auto 就可以在 right
+ 部分 达到元素滑动效果*/
+
+
+
