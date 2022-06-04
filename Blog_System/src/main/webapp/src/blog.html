@@ -1,11 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>博客页面</title>
-        <link rel="stylesheet" href="common.css">
-        <link rel="stylesheet" href="blog_list.css">
-    </head>
     <body>
 
         <!--导航栏-->
@@ -15,8 +9,8 @@
             <span class="spacer"></span>
             <a href="blog.html">主页</a>
             <a href="blog-write.html">写博客</a>
-            <a href="blog_login.html">登录</a>
             <a href="#">注销</a>
+            <a href="blog_login.html">登录</a>
         </div>
 
         <!--这里作为页面的中心,div 元素默认独占一行，要多个
@@ -78,5 +72,43 @@
         <!--在左右中间，加入一个没有内容的空白元素，
           设置一个比较大的宽度来进行占位，不能自动适应不同宽度的浏览器-->
 
+        <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+
+        <script>
+            //页面加载的时候，通过 ajax 给服务器发送数据，获取到博客列表信息，并显示在界面上
+            function getBlogList() {
+                $.ajax({
+                   type:'get',
+                   url:'blog',
+                   success: function (body) {
+                       //获取到的 body 就是一个 json 数组，没个元素就是 json 对象，根据对象来构造 div
+                       //1、先把 .right 里面原有的内容清空
+                       let rightDiv = document.querySelector('.right');
+                       //2、遍历 body 构造出一个个的 blogDiv
+                       for (let blog of body) {
+                           let blogDiv = document.createElement('div');
+                           blogDiv.className = 'blog';
+                           let titleDiv = document.createElement('div');
+                           titleDiv.className = 'title';
+                           titleDiv.innerHTML = blog.title;
+                           blogDiv.appendChild(titleDiv);
+                           //构造发布时间
+                           let dateDiv = document.createElement('div');
+                           dateDiv.className = 'date';
+                           dateDiv.innerHTML = blog.postTime;
+
+
+                       }
+                   }
+                });
+            }
+        </script>
+
     </body>
+    <head>
+        <meta charset="UTF-8">
+        <title>博客页面</title>
+        <link rel="stylesheet" href="common.css">
+        <link rel="stylesheet" href="blog_list.css">
+    </head>
 </html>

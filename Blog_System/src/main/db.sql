@@ -13,6 +13,13 @@ create table blog (
     postTime datetime  -- 发布时间
 );
 
+-- 给表中插入数据，方便测试
+insert into blog values (null, '第一篇博客', '从今天开始，我要认真敲代码', 1, now());
+insert into blog values (null, '第二篇博客', '从今天开始，我要认真敲代码', 1, now());
+insert into blog values (null, '第三篇博客', '从今天开始，我要认真敲代码', 2, now());
+insert into blog values (null, '第四篇博客', '从今天开始，我要认真敲代码', 2, now());
+insert into blog values (null, '第五篇博客', '从今天开始，我要认真敲代码', 3, now());
+
 -- 创建用户表
 drop table if exists user;
 create table user (

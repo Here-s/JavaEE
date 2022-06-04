@@ -1,3 +1,4 @@
+package model;
 
 //每个 user 对象，表示 user 表里面的一条记录
 public class User {

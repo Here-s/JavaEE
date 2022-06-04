@@ -29,7 +29,7 @@
 {include file="template.tpl"}
 
 {* some example Smarty content *}
-{if isset($name) && $name == 'Blog'}
+{if isset($name) && $name == 'model.Blog'}
   This is a {$var}.
   {$integer = 451}, {$array[] = "a"}, {$stringvar = "string"}
   {assign var='bob' value=$var.prop}
@@ -61,7 +61,7 @@
 {--include file="template.tpl"--}
 
 {--* some example Smarty content *--}
-{--if isset($name) && $name == 'Blog'--}
+{--if isset($name) && $name == 'model.Blog'--}
   This is a {--$var--}.
   {--$integer = 451--}, {--$array[] = "a"--}, {--$stringvar = "string"--}
   {--assign var='bob' value=$var.prop--}
