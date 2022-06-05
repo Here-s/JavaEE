@@ -47,7 +47,12 @@ public class BlogDao {
                 Blog blog = new Blog();
                 blog.setBlogId(resultSet.getInt("blogId"));
                 blog.setTitle(resultSet.getString("title"));
-                blog.setContent(resultSet.getString("content"));
+                //这里需要针对内容进行截断（太长了，就取代哦后面）
+                String content = resultSet.getString("content");
+                if (content.length() > 50) {
+                    content = content.substring(0, 50) + "...";
+                }
+                blog.setContent(content);
                 blog.setUserId(resultSet.getShort("userId"));
                 blog.setPostTime(resultSet.getTimestamp("postTime"));
                 blogs.add(blog);

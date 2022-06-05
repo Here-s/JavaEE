@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>博客页面</title>
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="blog_list.css">
+</head>
     <body>
 
         <!--导航栏-->
@@ -96,19 +102,29 @@
                            let dateDiv = document.createElement('div');
                            dateDiv.className = 'date';
                            dateDiv.innerHTML = blog.postTime;
+                           blogDiv.appendChild(dateDiv);
+                           //构造博客摘要
+                           let descDiv = document.createElement('div');
+                           descDiv.className = 'desc';
+                           descDiv.innerHTML = blog.content;
+                           blogDiv.appendChild(descDiv);
+                           //构造查看全文
+                           let a = document.createElement('a');
+                           a.innerHTML = '查看全文 &gt;&gt';
+                           //此处希望点击之后，能否跳转到 博客详情页
+                           a.href = 'blog_detail.html?blogId=' + blog.blogId;
+                           blogDiv.appendChild(a);
 
-
+                           //把 blogDiv 挂到 dom 树上
+                           rightDiv.appendChild(blogDiv);
                        }
-                   }
+                   },error: function() {
+                       alert("获取博客列表失败");
+                    }
                 });
             }
         </script>
 
     </body>
-    <head>
-        <meta charset="UTF-8">
-        <title>博客页面</title>
-        <link rel="stylesheet" href="common.css">
-        <link rel="stylesheet" href="blog_list.css">
-    </head>
+
 </html>
