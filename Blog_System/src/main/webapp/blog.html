@@ -10,7 +10,7 @@
 
         <!--导航栏-->
         <div class="nav">
-            <img src="../img/头像.jpg" alt="">
+            <img src="img/头像.jpg" alt="">
             <span>我的博客系统</span>
             <span class="spacer"></span>
             <a href="blog.html">主页</a>
@@ -26,7 +26,7 @@
             <div class="left">
                 <!--表示整个用户信息区域-->
                 <div class="card">
-                    <img src="../img/头像.jpg" alt="">
+                    <img src="img/头像.jpg" alt="">
                     <h3>小阿鹏</h3>
                     <a href="#">GitHub 地址</a>
 
@@ -90,6 +90,7 @@
                        //获取到的 body 就是一个 json 数组，没个元素就是 json 对象，根据对象来构造 div
                        //1、先把 .right 里面原有的内容清空
                        let rightDiv = document.querySelector('.right');
+                       rightDiv.innerHTML = '';
                        //2、遍历 body 构造出一个个的 blogDiv
                        for (let blog of body) {
                            let blogDiv = document.createElement('div');
@@ -100,7 +101,7 @@
                            blogDiv.appendChild(titleDiv);
                            //构造发布时间
                            let dateDiv = document.createElement('div');
-                           dateDiv.className = 'date';
+                           dateDiv .className = 'date';
                            dateDiv.innerHTML = blog.postTime;
                            blogDiv.appendChild(dateDiv);
                            //构造博客摘要
@@ -110,8 +111,8 @@
                            blogDiv.appendChild(descDiv);
                            //构造查看全文
                            let a = document.createElement('a');
-                           a.innerHTML = '查看全文 &gt;&gt';
-                           //此处希望点击之后，能否跳转到 博客详情页
+                           a.innerHTML = '查看全文 &gt;&gt;';
+                           //此处希望点击之后，能跳转到 博客详情页,并且带上 博客Id
                            a.href = 'blog_detail.html?blogId=' + blog.blogId;
                            blogDiv.appendChild(a);
 
@@ -123,6 +124,8 @@
                     }
                 });
             }
+
+            getBlogList();
         </script>
 
     </body>

@@ -51,7 +51,7 @@ public class Blog {
     public String getPostTime() {
         //来完成时间戳格式化日期时间的转化，在构造方法当中，指定转换格式，然后调用 format 转换
         // 时间格式一定要查一下，怎么写合适
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH-mm-ss ");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm:ss ");
         return simpleDateFormat.format(postTime);
     }
 
