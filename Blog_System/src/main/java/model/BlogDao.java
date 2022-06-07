@@ -40,7 +40,7 @@ public class BlogDao {
         ResultSet resultSet = null;
         try {
             connection  = DBUtil.getConnection();
-            String sql = "select * from blog";
+            String sql = "select * from blog order by postTime desc";
             statement = connection.prepareStatement(sql);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -71,7 +71,7 @@ public class BlogDao {
         ResultSet resultSet = null;
         try {
             connection = DBUtil.getConnection();
-            String sql = "select * from where blogId = ?";
+            String sql = "select * from blog where blogId = ?";
             statement = connection.prepareStatement(sql);
             statement.setInt(1, blogId);
             resultSet = statement.executeQuery();

@@ -19,12 +19,24 @@ public class BlogServlet extends HttpServlet {
     //获取数据库当中的博客列表
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //从数据库当作查询到博客列表，然后转成 json 格式
-        BlogDao blogDao = new BlogDao();
-        List<Blog> blogs = blogDao.selectAll();
-        //把 blogs 转成 JSON 格式
-        String respJson = objectMapper.writeValueAsString(blogs);
+        //先尝试获取 req 当中的 blogId 参数，有参数的话，就是博客详情页
+        // 没有参数的话，就是博客列表
         resp.setContentType("application/json; charset=utf8");
-        resp.getWriter().write(respJson);
+        BlogDao blogDao = new BlogDao();
+        String param = req.getParameter("blogId");
+        if (param == null) {
+            //没有参数，获取博客列表
+            List<Blog> blogs = blogDao.selectAll();
+            //把 blogs 转成 JSON 格式
+            String respJson = objectMapper.writeValueAsString(blogs);
+
+            resp.getWriter().write(respJson);
+        } else {
+            //存在参数，获取博客详情
+            int blogId = Integer.parseInt(param);
+            Blog blog = blogDao.selectOne(blogId);
+            String respJson = objectMapper.writeValueAsString(blog);
+            resp.getWriter().write(respJson);;
+        }
     }
 }

@@ -19,6 +19,7 @@ insert into blog values (null, '第二篇博客', '从今天开始，我要认�
 insert into blog values (null, '第三篇博客', '从今天开始，我要认真敲代码', 2, now());
 insert into blog values (null, '第四篇博客', '从今天开始，我要认真敲代码', 2, now());
 insert into blog values (null, '第五篇博客', '从今天开始，我要认真敲代码', 3, now());
+insert into blog values (null, '第二篇博客', '从今天开始，我还要认真敲代码', 3, now());
 
 -- 创建用户表
 drop table if exists user;
