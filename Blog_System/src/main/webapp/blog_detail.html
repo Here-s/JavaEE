@@ -60,8 +60,15 @@
             function getBlogDetail() {
                 $.ajax({
                     type: 'get',
-                    url: 'blog', location.search
-                    id: 1
+                    url: 'blog' + location.search,
+                    success: function (body) {
+                        //根据 body 中的内容，来构造页面
+                        // 先构造博客标题
+                        let h3 = document.querySelector(".blog-content>h3")
+                        h3.innerHTML = body.title
+                        // 构造博客发布页面
+                        let
+                    }
                 });
             }
             getBlogDetail();
