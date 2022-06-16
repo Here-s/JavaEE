@@ -5,6 +5,13 @@
         <title>博客详情页</title>
         <link rel="stylesheet" href="common.css">
         <link rel="stylesheet" href="blog_detail.css">
+
+        <!-- 引入 editor.md 的依赖 -->
+        <link rel="stylesheet" href="editor.md/css/editormd.min.css" />
+        <script src="js/jquery.min.js"></script>
+        <script src="editor.md/lib/marked.min.js"></script>
+        <script src="editor.md/lib/prettify.min.js"></script>
+        <script src="editor.md/editormd.js"></script>
     </head>
     <body>
         <!--导航栏-->
@@ -24,7 +31,7 @@
                 <div class="card">
                     <img src="img/头像.jpg" alt="">
                     <h3>小阿鹏</h3>
-                    <a href="#">GitHub 地址</a>
+                    <a href="https://github.com/Here-s">GitHub 地址</a>
 
                     <div class="counter">
                         <span>文章</span>
@@ -44,9 +51,9 @@
                     <!--博客标题-->
                     <h3></h3>
                     <!--博客时间-->
-                    <div class="data"></div>
+                    <div class="date"></div>
                     <!--正文-->
-                    <div id="content">
+                    <div id="content" style="opacity: 70%">
 
                     </div>
 
@@ -55,7 +62,6 @@
             </div>
         </div>
 
-        <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
         <script>
             function getBlogDetail() {
                 $.ajax({
@@ -64,10 +70,20 @@
                     success: function (body) {
                         //根据 body 中的内容，来构造页面
                         // 先构造博客标题
-                        let h3 = document.querySelector(".blog-content>h3")
-                        h3.innerHTML = body.title
-                        // 构造博客发布页面
-                        let blog
+                        let h3 = document.querySelector(".blog-content>h3");
+                        h3.innerHTML = body.title;
+                        // 构造博客发布时间
+                        let dateDIv = document.querySelector('.date');
+                        dateDIv.innerHTML = body.postTime;
+                        // 构造博客正文,如果直接把 content 设为 innerHTML 的话，此时展示在界面上的内容，
+                        //  就是 markdown 字符串，要展示的是渲染后，带格式的效果
+                        // let content = document.querySelector('#content');
+                        // content.innerHTML = body.content;
+
+                        //第一个参数对应 id = content 的 HTML 标签，渲染之后得到的 html 片段，就会放到这个标签下
+                        editormd.markdownToHTML('content', {
+                            markdown: body.content
+                        });
                     }
                 });
             }

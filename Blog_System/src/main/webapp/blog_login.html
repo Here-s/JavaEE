@@ -20,23 +20,26 @@
       </div>
 
       <div class="login-container">
-        <div class="login-dialog">
-          <h3>登录</h3>
-          <div class="row">
-            <span>用户名</span>
-            <input type="text" id="username">
-          </div>
+        <from action="login" method="post">
+          <div class="login-dialog">
+            <h3>登录</h3>
+            <div class="row">
+              <span>用户名</span>
+              <input type="text" id="username" name="username">
+            </div>
 
-          <div class="row">
-            <span>密码</span>
-            <input type="password" id="password">
-          </div>
+            <div class="row">
+              <span>密码</span>
+              <input type="password" id="password" name="password">
+            </div>
 
-          <div class="row">
-            <button>提交</button>
+            <div class="row">
+              <!--<button>提交</button>-->
+              <input type="submit" id="submit" value="提交">
+            </div>
           </div>
+        </from>
 
-        </div>
       </div>
 
     </body>
