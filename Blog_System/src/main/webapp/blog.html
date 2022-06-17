@@ -27,8 +27,8 @@
                 <!--表示整个用户信息区域-->
                 <div class="card">
                     <img src="img/头像.jpg" alt="">
-                    <h3>小阿鹏</h3>
-                    <a href="#">GitHub 地址</a>
+                    <h3></h3>
+                    <a href="https://github.com/Here-s">GitHub 地址</a>
 
                     <div class="counter">
                         <span>文章</span>
@@ -126,6 +126,13 @@
             }
 
             getBlogList();
+        </script>
+
+        <!--在这里引入检测的 JS 文件就可以实现登陆状态检查了-->
+        <script src="js/common.js"></script>
+        <script>
+            //针对博客列表页，调用的时候传入一个参数
+            getUserInfo("blog.html");
         </script>
 
     </body>
