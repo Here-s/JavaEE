@@ -23,22 +23,27 @@
             <span class="spacer"></span>
             <a href="blog.html">主页</a>
             <a href="blog-write.html">写博客</a>
-            <a href="#">注销</a>
+            <a href="logout">注销</a>
         </div>
 
+        
         <!--包括整个博客编辑区的内容-->
         <div class="blog-edit-container">
-            <div class="title">
-                <input type="text">
-                <button>发布文章</button>
-            </div>
-
-            <!--放 markdown 编辑器，直接引入就好了
-              引入的时候，目录的名字会直接影响到后续代码中的
-              一些相关写法。然后引入需要的 CSS 和 JS-->
-            <div id="editor">
-
-            </div>
+           <form action="blog" method="post" style="height: 100%">
+                <div class="title">
+                    <input type="text" placeholder="请在此输入标题" name="title" id="title">
+                    <!--<button>发布文章</button>-->
+                    <input type="submit" value="发布文章" id="submit">
+                </div>
+                <!--放 markdown 编辑器，直接引入就好了
+                  引入的时候，目录的名字会直接影响到后续代码中的
+                  一些相关写法。然后引入需要的 CSS 和 JS-->
+                <div id="editor">
+                    <!--为了进行 form 的提交，此处弄 textarea 多行编辑框，来完成表单的提交-->
+                    <!--可以设置 editor.md 让编辑器把 markdown 内容也同步保存到这个隐藏的 textarea 中，从而进行 form 提交-->
+                    <textarea name="content" style="display: none"></textarea>
+                </div>
+            </form>
         </div>
         <script>
             // 初始化编辑器
@@ -50,7 +55,9 @@
                 // 编辑器中的初始内容
                 markdown: "# 在这里写下一篇博客",
                 // 指定 editor.md 依赖的插件路径
-                path: "editor.md/lib/"
+                path: "editor.md/lib/",
+                //加上选项，editor.md 就会自动把用户编辑器输入的内容自动同步到 隐藏 textarea 中了
+                saveHTMLToTextarea: true,
             });
         </script>
 

@@ -18,10 +18,10 @@
         <div class="nav">
             <img src="img/头像.jpg" alt="">
             <span>我的博客系统</span>
-            <span class="spacer"></span>
+            <div class="spacer"></div>
             <a href="blog.html">主页</a>
             <a href="blog-write.html">写博客</a>
-            <a href="#">注销</a>
+            <a href="logout">注销</a>
         </div>
 
         <div class="container">
@@ -62,6 +62,8 @@
             </div>
         </div>
 
+        <!--在这里引入检测的 JS 文件就可以实现登陆状态检查了-->
+        <script src="js/common.js"></script>
         <script>
             function getBlogDetail() {
                 $.ajax({
@@ -88,11 +90,61 @@
                 });
             }
             getBlogDetail();
-        </script>
-        <!--在这里引入检测的 JS 文件就可以实现登陆状态检查了-->
-        <script src="js/common.js"></script>
-        <script>
+
+            //加上一个逻辑，通过 GET/login 这个接口来获取当前的登陆状态
+            function getUserInfo(pageName) {
+                $.ajax({
+                    type: 'get',
+                    url: 'login',
+                    success: function (body) {
+                        //判断此处的 body 是不是一个游戏的 user 对象
+                        if (body.userId && body.userId > 0) {
+                            //登陆成功，不做处理
+                            console.log("当前用户登陆成功！用户名：" + body.username);
+                            //在 getUserInfo 的回调函数当中来调用，获得作者信息
+                            getAuthorInfo(body);
+                        } else {
+                            //登陆失败，让 前端页面 跳转到 blog_login.html
+                            alert("当前您尚未登录，请登录后再访问博客列表")
+                            location.assign('blog_login.html')
+                        }
+                    },
+                    error: function () {
+                        alert("当前您尚未登录，请登录后再访问博客列表")
+                        location.assign('blog_login.html')
+                    }
+                });
+            }
+            //判定用户登陆状态
             getUserInfo("blog_detail.html");
+
+            //从服务器获取博客的作者信息，并展示在页面上
+            //参数 user 就是从服务器上拿到的当前登录用户的信息
+            function getAuthorInfo(user) {
+                $.ajax({
+                    type: 'get',
+                    url: 'authorInfo' + location.search,
+                    success:function (body) {
+                        //此处的 body 就是服务器返回的 user 对象
+                        if (body.username) {
+                            //如果响应中的 username 存在，九八这个值设置到页面上
+                            changeUserName(body.username);
+                            if (body.username == user.username) {
+                                //作者和登录的用户是同一个人，显示删除按钮
+                                let navDiv = document.querySelector('.nav');
+                                let a = document.createElement('a');
+                                a.innerHTML = '删除';
+                                //期望点击删除，构造一个形如 blogDelete?blogId=6
+                                // 这样的请求
+                                a.href = 'blogDelete' + location.search;
+                                navDiv.appendChild(a);
+                            }
+                        } else {
+                            console.log("获取作者信息失败！" + body.reason);
+                        }
+                    }
+                });
+            }
         </script>
 
     </body>

@@ -10,7 +10,7 @@ import java.util.List;
 //封装博客的基本操作
 public class BlogDao {
     //1、往博客表里面插入一个博客
-    public static void insert(Blog blog) {
+    public void insert(Blog blog) {
         //JDBC 基本代码：
         Connection connection = null;
         PreparedStatement statement = null;
@@ -22,7 +22,7 @@ public class BlogDao {
             statement = connection.prepareStatement(sql);
             statement.setString(1, blog.getTitle());
             statement.setString(2, blog.getContent());
-            statement.setInt(1, blog.getUserId());
+            statement.setInt(3, blog.getUserId());
             // 3、执行 SQL
             statement.executeUpdate();
         } catch (SQLException e) {
