@@ -1,0 +1,33 @@
+Linux 常用命令
+
+ls    列出当前目录中包含的文件和目录
+ls .  也是列出报刊的文件和目录，是相对路径
+ls /  Linux当中的根目录
+ls -l 显示方式为列表的方式，显示的更详细
+ll    是 ls -l 的缩写
+
+pwd   显示当前在哪个目录里
+
+cd /文件名/   就是切换目录
+
+cd .. 切换到当前路径的上级
+
+ctrl+c 表示取消当前操作
+
+ctrl + insert  复制
+shift + insert 粘贴
+
+touch  创建一个空文件，如果文件存在，会更新访问时间
+cat    显示文件内容
+echo   打印文件到控制台，也可以用于写文件
+echo 'hello' > test  把 hello 写入 test 文件当中
+
+CTRL + L 清屏
+
+mkdir  创建目录
+rm 文件名    删除文件
+rm -r 目录名   就是删除目录和里面的所有东西
+rm -rf 目录名   就是删除目录和里面的所有东西，没有提示直接删除
+
+tree   显示文件目录结构
+yum install tree  安装 tree，yum 相当于应用商店
