@@ -72,3 +72,5 @@ ps aux  查看所有进程
 ps aux | grep xxxx  查看进程
 
 netstat -anp | grep 8080   查看端口，把 8080 换成其他的服务名称，就是查看服务
+
+mysql -uroot -p   进入MySQL
