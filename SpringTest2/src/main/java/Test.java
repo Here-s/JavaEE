@@ -16,9 +16,9 @@ public class Test {
     public static void main(String[] args) {
         //先得到上下文对象
         ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
-        User user = context.getBean("user1", User.class);
+//        User user = context.getBean("userInfo", User.class);
 //        User user = context.getBean(User.class);
-        System.out.println(user);
+//        System.out.println(user);
 
 //        //得到 bean。默认情况下，id 使用的是 小驼峰
 //        UserController controller = context.getBean("userController", UserController.class);
@@ -34,7 +34,10 @@ public class Test {
 //        UserConfiguration userConfiguration = context.getBean(UserConfiguration.class);
 //        userConfiguration.sayHi();
 
-        UserComponent userComponent = context.getBean(UserComponent.class);
-        userComponent.sayHi();
+//        UserComponent userComponent = context.getBean(UserComponent.class);
+//        userComponent.sayHi();
+
+//        UserController controller = context.getBean(UserController.class);
+//        controller.sayHi();
     }
 }
