@@ -1,0 +1,18 @@
+student:
+  id: 1
+  name: 张三
+  age: 18
+
+student2: {id: 2,name: 李四,age: 19}
+
+null.value: ~
+
+mystring: "你好\n世界" #这里会换行，因为双引号当中是原有的意思。除非加转义字符
+
+dbtypes:
+  name:
+    - mysql
+    - sqlserver
+    - db2
+
+dbtypes2: {name: [mysql,sqlserver,db2]};
