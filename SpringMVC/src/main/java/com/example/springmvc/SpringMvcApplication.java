@@ -25,7 +25,21 @@ public class SpringMvcApplication {
         // a）获取单个参数
         // b）获取多个参数
         // c）获取对象
+        // d）服务器端实现 JSON 数据的接收，需要使用 @RequestBody 注解
+        // e）从 URL 地址当中获取参数 @PathVariable
+        // f）上传文件 @RequestPart
+        // g）获取 Cookie 和 Session/header
+        //   1、servlet 获取 cookie 的方法
+        //   2、使用 @CookieValue 注解
+        // h）获取 header
+        //   1、通过 servlet
+        //   2、通过 @RequestHeader 注解
+        // i）存储和获取 Session
+        //   1、存储 Session，servlet 和 SpringMVC 是一样的
+        //   2、获取 Session， servlet 方法。 SpringMVC 方法：@SessionAttribute 注解
         //3、服务器要将结果返回给用户（前端）
+        // a）通过 @ResponseBody 注解
+        // b）使用 @RestController 注解
         SpringApplication.run(SpringMvcApplication.class, args);
     }
 

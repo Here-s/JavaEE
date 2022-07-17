@@ -1,0 +1,4 @@
+# 设置配置文件的运行平台
+spring:
+  profiles:
+    active: dev
