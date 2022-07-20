@@ -40,6 +40,13 @@ public class SpringMvcApplication {
         //3、服务器要将结果返回给用户（前端）
         // a）通过 @ResponseBody 注解
         // b）使用 @RestController 注解
+
+
+        //热部署，就是自动重启 SpringBoot 项目，通过热部署，就可以“实时”开发了
+
+        //请求转发 和 请求重定向
+        // 1、请求转发：forward
+        // 2、请求重定向：redirect。重定向的请求 发生在客户端。
         SpringApplication.run(SpringMvcApplication.class, args);
     }
 

@@ -4,6 +4,7 @@ import com.example.springmvc.model.UserInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.UUID;
 
 @Slf4j
@@ -125,6 +127,55 @@ public class UserController {
         //这样就把 前端传来的 name，换成 username 了，但是前端必须传 name，不然就报错，
         // 所以就设置 required 为 false 就可以了
         return "用户名 " + username + " 密码 " + password;
+    }
+
+    @RequestMapping("/login3")
+    public HashMap<String, Object> login3 (String username, String password) {
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        int state = 200;
+        int data = -1;//data 等于 1，就表示登陆成功，否则登陆失败
+        String msg = "未知错误1";
+        if (StringUtils.hasLength(username) && StringUtils.hasLength(password)) {
+            if (username.equals("admin") && password.equals("admin")) {
+                data = 1;
+                msg = "";
+            } else {
+                msg = "用户名或密码错误";
+            }
+        } else {//参数为空
+            msg = "非法参数";
+        }
+        result.put("state", state);
+        result.put("data", data);
+        result.put("msg", msg);
+        return result;
+    }
+
+    /**
+     * 获取前端的 json 数据
+     * @param userInfo
+     * @return
+     */
+    @RequestMapping("/login4")
+    public HashMap<String, Object> login4 (@RequestBody UserInfo userInfo) {
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        int state = 200;
+        int data = -1;//data 等于 1，就表示登陆成功，否则登陆失败
+        String msg = "未知错误1";
+        if (StringUtils.hasLength(userInfo.getUsername()) && StringUtils.hasLength(userInfo.getPassword())) {
+            if (userInfo.getUsername().equals("admin") && userInfo.getPassword().equals("admin")) {
+                data = 1;
+                msg = "";
+            } else {
+                msg = "用户名或密码错误";
+            }
+        } else {//参数为空
+            msg = "非法参数";
+        }
+        result.put("state", state);
+        result.put("data", data);
+        result.put("msg", msg);
+        return result;
     }
 
     //接收 JSON 格式的数据

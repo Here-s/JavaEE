@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <title>Document</title>
+    <script>
+      //ajax 提交
+      function mysub(){
+        //1.判空   也可以把 jQuery 符号换成 $
+        var username = jQuery("#username");
+        var password = jQuery("#password");
+        //使用 trim 方法来去掉空格
+        if(jQuery.trim(username.val())==""){
+          alert("请先输入用户名！");
+          //把光标重新放到元素上面
+          username.focus();
+          return;
+        }
+        if(jQuery.trim(password.val())==""){
+          alert("请先输入密码！");
+          password.focus(); //光标重制到此元素
+          return;
+        }
+        jQuery.ajax({
+          url:"/user/login4",
+          type:"POST",
+          // data:{"username":username.val(),"password":password.val()},
+          // success:function (result) {
+          //   alert(JSON.stringify(result));
+          // }
+
+          //这样就是 JSON 格式的数据了
+          contentType:"application/json",
+          data:JSON.stringify({"username":username.val(),
+            "password":password.val()}),
+          success:function(result){
+            alert(JSON.stringify(result));
+          }
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div style="text-align: center;">
+      <h1>登录</h1>
+      用户：<input id="username">
+      <br>
+      密码：<input id="password" type="password">
+      <br>
+      <input type="button" value=" 提交 " onclick="mysub()" style="margin-top: 20px;margin-left: 50px;">
+    </div>
+  </body>
+</html>
