@@ -1,0 +1,20 @@
+#开发环境配置文件
+#配置数据库环境
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/mycnblog?characterEncoding=utf8
+    username: root
+    password: sjp151
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+#打开 mybatis sql 打印
+logging:
+  level:
+    com:
+      example:
+        mybatistest: debug
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+

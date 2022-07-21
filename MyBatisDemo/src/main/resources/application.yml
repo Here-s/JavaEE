@@ -1,0 +1,9 @@
+#当前运行的环境（配置文件）
+spring:
+  profiles:
+    active: dev
+
+#配置 mybatis xml 保存路径
+mybatis:
+  mapper-locations: classpath:mybatis/**Mapper.xml
+  #表示定位到 mybatis 文件夹，表示 某某Mapper.xml 才是使用的 xml 文件
