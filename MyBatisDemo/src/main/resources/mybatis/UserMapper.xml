@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace 就是要实现的接口的拘役包名+类名-->
+<mapper namespace="com.example.mybatisdemo.mapper.UserMapper">
+
+    <!--查询-->
+    <select id="getUserById" resultType="com.example.mybatisdemo.model.UserInfo">
+        select * from userinfo where id=#{id}
+    </select>
+
+    <!--修改-->
+    <update id="update">
+        update userinfo set username=#{username} where id=#{id}
+    </update>
+
+    <!--删除-->
+    <delete id="del">
+        delete from userInfo where id=#{id}
+    </delete>
+
+    <!--添加用户，然后返回受影响的行数-->
+    <insert id="add">
+        insert into userinfo(username, password, photo) values(#{username}, #{id}, #{photo})
+    </insert>
+
+    <!--添加用户，并且返回 受影响的行数 和 id-->
+    <insert id="addGetId" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into userinfo(username, password, photo) values(#{username}, #{id}, #{photo})
+    </insert>
+
+</mapper>
