@@ -3,9 +3,44 @@
 <!--namespace 就是要实现的接口的拘役包名+类名-->
 <mapper namespace="com.example.mybatisdemo.mapper.UserMapper">
 
+    <!--$ 和 # 的区别：# 是预处理，$ 是直接替换，#{} 适用于所有类型的参数匹配，$ 只适用于 数值类型。
+         #{} 性能高 并且没有安全问题，但是 ${}存在 sql 注入的 安全问题,使用密码：' or 1='1 时，就会显示出数据库信息
+         当不得不使用 ${} 时，一定要在业务代码中，对传递的值进行安全校验，就是再 controller 中校验-->
+
+    <!--当传的参数和 字段不一样的时候 resultType 返回的就是 null 所以就可以使用 resultMap-->
+    <resultMap id="BaseMap" type="com.example.mybatisdemo.model.UserInfo">
+        <!--表示是主键-->
+        <id column="id" property="id"></id>
+        <!--表示是普通属性-->
+        <result column="username" property="name"></result>
+    </resultMap>
+
     <!--查询-->
-    <select id="getUserById" resultType="com.example.mybatisdemo.model.UserInfo">
+    <select id="getUserById" resultMap="BaseMap">
         select * from userinfo where id=#{id}
+    </select>
+
+    <select id="getUserByFullName" resultType="com.example.mybatisdemo.model.UserInfo">
+        select * from userinfo where username=#{username}
+    </select>
+
+    <!--在排序的时候，就必须使用 $ 符了-->
+    <select id="getOrderList" resultType="com.example.mybatisdemo.model.UserInfo">
+        select * from userinfo order by createtime ${order};
+    </select>
+
+    <select id="login" resultType="com.example.mybatisdemo.model.UserInfo">
+--         select * from userinfo where username='${username}' and password='${password}'
+--         换成 # 就不会引起 sql 注入了
+        select * from userinfo where username=#{username} and password=#{password}
+    </select>
+
+<!--    根据名字模糊查询-->
+    <select id="getListByName" resultType="com.example.mybatisdemo.model.UserInfo">
+--         使用 $ 符号的话，就不能避免 sql 注入了，所以就可以使用 concat 指令来实现
+--         select * from userinfo where username like '%${username}%'
+        -- 使用 concat 查询
+        select * from userinfo where username like concat('%',#{username},'%')
     </select>
 
     <!--修改-->
