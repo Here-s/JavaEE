@@ -13,7 +13,20 @@
         <id column="id" property="id"></id>
         <!--表示是普通属性-->
         <result column="username" property="name"></result>
+        <result column="password" property="password"></result>
+        <result column="photo" property="photo"></result>
+        <result column="createtime" property="createtime"></result>
+        <result column="updatetime" property="updatetime"></result>
+        <result column="state" property="state"></result>
+        <collection property="artList" resultMap="com.example.mybatisdemo.mapper.ArticleMapper.BaseMap"
+            columnPrefix="a_"></collection>
     </resultMap>
+
+
+    <select id="getUserAndArticleByUid" resultMap="BaseMap">
+        select * u.*,a.id a_id, a.title a_title,a.content a_content,a.createtime a_createtime
+        a.updatetime a_updatetime  from userinfo u left join articleinfo a on u.id=a.uid where u.id=#{}
+    </select>
 
     <!--查询-->
     <select id="getUserById" resultMap="BaseMap">

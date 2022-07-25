@@ -9,6 +9,9 @@ import java.util.List;
 @Mapper //就表示当前不是普通的接口了，是 mybatis 的接口了
 public interface UserMapper {
 
+    //查询用户及用户发表的所有文章
+    public UserInfo getUserAndArticleByUid(@Param("uid") Integer uid);
+
     //模糊查询
     public List<UserInfo> getListByName(@Param("username") String name);
 

@@ -2,16 +2,15 @@ package com.example.mybatisdemo.model;
 
 import lombok.Data;
 
-import java.util.List;
-
 @Data
-public class UserInfo {
+public class ArticleInfo {
     private int id;
-    private String name;
-    private String password;
-    private String photo;
+    private String title;
+    private String content;
     private String createtime;
     private String updatetime;
+    private int uid;
+    private int rcount;
     private int state;
-    private List<ArticleInfo> artList;
+    private UserInfo userInfo;
 }
