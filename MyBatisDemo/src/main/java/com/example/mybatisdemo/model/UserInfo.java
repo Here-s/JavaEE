@@ -13,5 +13,6 @@ public class UserInfo {
     private String createtime;
     private String updatetime;
     private int state;
+    //作为文章列表
     private List<ArticleInfo> artList;
 }

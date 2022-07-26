@@ -18,14 +18,15 @@
         <result column="createtime" property="createtime"></result>
         <result column="updatetime" property="updatetime"></result>
         <result column="state" property="state"></result>
+        <!--使用 collection 来应对 一对多场景-->
         <collection property="artList" resultMap="com.example.mybatisdemo.mapper.ArticleMapper.BaseMap"
             columnPrefix="a_"></collection>
     </resultMap>
 
 
     <select id="getUserAndArticleByUid" resultMap="BaseMap">
-        select * u.*,a.id a_id, a.title a_title,a.content a_content,a.createtime a_createtime
-        a.updatetime a_updatetime  from userinfo u left join articleinfo a on u.id=a.uid where u.id=#{}
+        select u.*,a.id a_id, a.title a_title,a.content a_content,a.createtime a_createtime,
+        a.updatetime a_updatetime from userinfo u left join articleinfo a on u.id=a.uid where u.id=#{uid}
     </select>
 
     <!--查询-->
@@ -75,5 +76,55 @@
     <insert id="addGetId" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         insert into userinfo(username, password, photo) values(#{username}, #{id}, #{photo})
     </insert>
+
+    <!--使用 非必要参数，哪里使用非必要参数的话，就在哪里使用 if-->
+    <insert id="add2">
+        insert into userinfo(username,password
+        <if test="photo!=null">
+            ,photo
+        </if>
+        ) values (#{name},#{password}
+        <if test="photo!=null">
+            ,#{photo}
+        </if>
+        )
+    </insert>
+
+    <insert id="add3">
+        insert into userinfo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name!=null">
+                username,
+            </if>
+            <if test="password!=null">
+                password,
+            </if>
+            <if test="photo!=null">
+                photo
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name!=null">
+                #{name},
+            </if>
+            <if test="password!=null">
+                #{password},
+            </if>
+            <if test="photo!=null">
+                #{photo}
+            </if>
+        </trim>
+    </insert>
+
+
+    <select id="getUserById2" resultMap="BaseMap">
+        select * from userinfo
+        <where>
+            <if test="id!=null">
+                and id=#{id}
+            </if>
+        </where>
+    </select>
 
 </mapper>

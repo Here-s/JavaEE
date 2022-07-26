@@ -11,14 +11,14 @@
         <result column="uid" property="uid"></result>
         <result column="rcount" property="rcount"></result>
         <result column="state" property="state"></result>
-        <!--columnPrefix 用来解决多表查询-->
+        <!--columnPrefix 用来解决多一对一查询当中另外一张表信息为 null ，通过设置 前缀 来区别 列-->
         <association property="userInfo"
               resultMap="com.example.mybatisdemo.mapper.UserMapper.BaseMap"
                 columnPrefix="u_"></association>
     </resultMap>
 
     <select id="getArticleById" resultMap="BaseMap">
-        select a.*,u.* from articleinfo a left join userinfo u on a.uid=u.id
+        select a.*,u.id u_id,u.username u_username,u.password u_password from articleinfo a left join userinfo u on a.uid=u.id
         where a.id=#{id}
     </select>
 

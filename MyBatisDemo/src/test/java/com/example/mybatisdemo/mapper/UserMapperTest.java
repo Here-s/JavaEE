@@ -49,4 +49,35 @@ class UserMapperTest {
         UserInfo userInfo = userMapper.getUserById(1);
         log.info("用户信息：" + userInfo);
     }
+
+    @Test
+    void getUserAndArticleByUid() {
+        UserInfo userInfo = userMapper.getUserAndArticleByUid(2);
+        log.info("用户详情 " + userInfo);
+    }
+
+    @Test
+    void add2() {
+        UserInfo userInfo = new UserInfo();
+        userInfo.setName("张三");
+        userInfo.setPassword("123");
+        userInfo.setPhoto("123.png");
+        int result = userMapper.add2(userInfo);
+        log.info("添加用户的结果：" + result);
+    }
+
+    @Test
+    void add3() {
+        UserInfo userInfo = new UserInfo();
+        userInfo.setName("张三");
+        userInfo.setPassword("123");
+        int result = userMapper.add3(userInfo);
+        log.info("添加用户的结果：" + result);
+    }
+
+    @Test
+    void getUserById2() {
+        UserInfo userInfo = userMapper.getUserById2(1);
+        log.info("用户信息：" + userInfo);
+    }
 }
