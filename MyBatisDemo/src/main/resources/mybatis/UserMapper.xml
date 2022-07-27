@@ -127,4 +127,28 @@
         </where>
     </select>
 
+
+    <!--set 方法-->
+    <update id="update2" >
+        update userinfo
+        <set>
+            <if test="name!=null">
+                username=#{name},
+            </if>
+            <if test="password!=null">
+                password=#{password},
+            </if>
+            <if test="photo!=null">
+                photo=#{photo}
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <delete id="delIds">
+        delete from userinfo where id in
+        <foreach collection="ids" open="(" close=")" item="id" separator=",">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

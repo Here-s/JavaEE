@@ -10,6 +10,12 @@ import java.util.List;
 @Mapper //就表示当前不是普通的接口了，是 mybatis 的接口了
 public interface UserMapper {
 
+    //删除
+    public int delIds(List<Integer> ids);
+
+    //使用 set，set 也可以让 trim 替换
+    public int update2(UserInfo userInfo);
+
     //使用 where，并且去除掉最前面的一个 and，这里的 where 标签也可以用 trim 标签来替代
     public UserInfo getUserById2(@Param("id") Integer id);
 
@@ -27,6 +33,14 @@ public interface UserMapper {
     //   假设每个列都需要 if 那么每个列之后都会有一个 逗号，所以 trim 就是去除最后一个 逗号
     // where 标签，主要实现查询中的 where 的 sql 替换，如果没有查询条件，就隐藏查询的 where
     //    可以自动去除最前面一个 and 字符，就是 拼接 的时候，多拼接的 anf
+    // set 标签，用来修改内容，配合 if 来处理非必传参数，因为修改的字段可能是非必传的。
+    //    可以去除最后一个 逗号
+    // foreach 标签，是对集合进行循环的，比如删除多个内容，主要的属性
+    //    collection：绑定方法参数中的集合，如 List，Set，Map 或数组对象
+    //    item：遍历时的每一个对象
+    //    open：语句块开头的字符串
+    //    close：语句块结束的字符串
+    //    separator：每次遍历之间间隔的字符串
 
     //查询用户及用户发表的所有文章
     public UserInfo getUserAndArticleByUid(@Param("uid") Integer uid);

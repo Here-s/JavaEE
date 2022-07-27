@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -79,5 +80,23 @@ class UserMapperTest {
     void getUserById2() {
         UserInfo userInfo = userMapper.getUserById2(1);
         log.info("用户信息：" + userInfo);
+    }
+
+    @Test
+    void update2() {
+        UserInfo userInfo = new UserInfo();
+        userInfo.setId(1);
+        userInfo.setName("张三");
+        int result = userMapper.update2(userInfo);
+        log.info("修改结果：" + result);
+    }
+
+    @Test
+    void delIds() {
+        List<Integer> list = new ArrayList<>();
+        list.add(8);
+        list.add(9);
+        int result = userMapper.delIds(list);
+        log.info("批量删除：" + result);
     }
 }
