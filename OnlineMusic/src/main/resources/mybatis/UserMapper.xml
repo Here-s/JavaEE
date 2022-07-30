@@ -3,6 +3,10 @@
 <mapper namespace="com.example.onlinemusic.mapper.UserMapper">
 
     <select id="login" resultType="com.example.onlinemusic.model.User">
-        select * from user where username=#{username} and password=#{password}
+        select * from user where username=#{username} and password=#{password};
+    </select>
+
+    <select id="selectByName" resultType="com.example.onlinemusic.model.User">
+        select * from user where username=#{username};
     </select>
 </mapper>
