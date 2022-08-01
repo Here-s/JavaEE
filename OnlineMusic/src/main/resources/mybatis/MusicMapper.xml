@@ -6,4 +6,12 @@
         insert into music(title,singer,time,url,userid)
         values (#{title},#{singer},#{time},#{url},#{userid});
     </insert>
+
+    <select id="findMusicById" resultType="com.example.onlinemusic.model.Music">
+        select * from music where id = #{id};
+    </select>
+
+    <delete id="deleteMusicById" parameterType="java.lang.Integer">
+        delete from music where id = #{id};
+    </delete>
 </mapper>

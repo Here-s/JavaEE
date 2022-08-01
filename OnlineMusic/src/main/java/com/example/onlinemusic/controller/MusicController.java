@@ -1,6 +1,7 @@
 package com.example.onlinemusic.controller;
 
 import com.example.onlinemusic.mapper.MusicMapper;
+import com.example.onlinemusic.model.Music;
 import com.example.onlinemusic.model.User;
 import com.example.onlinemusic.tools.Constant;
 import com.example.onlinemusic.tools.ResponseBodyMessage;
@@ -19,8 +20,10 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.net.BindException;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/music")
@@ -96,9 +99,95 @@ public class MusicController {
 
     }
 
+    /**
+     * 播放音乐  /music/get?path=xxx.mp3
+     * @param path
+     * @return
+     */
     @RequestMapping("/get")
-    public ResponseEntity<byte[]> func() {
-        byte[] a = {97,98,99,100};
-        return ResponseEntity.internalServerError().build();
+    public ResponseEntity<byte[]> func(String path) {
+        File file = new File(SAVE_PATH + path);
+        try {
+            byte[] a = Files.readAllBytes(file.toPath());
+            if (a == null) {
+                return ResponseEntity.badRequest().build();
+            }
+            return ResponseEntity.ok(a);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.badRequest().build();
+    }
+
+    /**
+     * 删除单个音乐
+     * @param id
+     * @return
+     */
+    @RequestMapping("/delete")
+    public ResponseBodyMessage<Boolean> deleteMusicById(@RequestParam String id) {
+        //1、检查音乐是否存在
+        int Id = Integer.parseInt(id);
+        //2、删除，数据库和服务器都要删除
+        Music music = musicMapper.findMusicById(Id);
+        if (music == null) {
+            System.out.println("没有此 id 的音乐");
+            return new ResponseBodyMessage<>(-1,"没有找到要删除的音乐",false);
+        } else {
+            //删除数据库音乐
+            int ret = musicMapper.deleteMusicById(Id);
+            if (ret == 1) {
+                //删除服务器音乐
+                int index = music.getUrl().lastIndexOf("=");
+                String fileName = music.getUrl().substring(index + 1);
+                File file = new File(SAVE_PATH + fileName + ".mp3");
+                System.out.println(file);
+                if (file.delete()) {
+                    return new ResponseBodyMessage<>(0, "服务器音乐删除成功！", true);
+                } else {
+                    return new ResponseBodyMessage<>(-1,"服务器音乐删除失败！",false);
+                }
+            } else {
+                return new ResponseBodyMessage<>(-1,"数据库当中的音乐没有被删除",false);
+            }
+
+        }
+    }
+
+    /**
+     * 批量删除
+     * @param id
+     * @return
+     */
+    @RequestMapping("/deletesel")
+    public ResponseBodyMessage<Boolean> deleteSelMusic(@RequestParam("id[]") List<Integer> id) {
+        int sum = 0;
+        for (int i = 0; i < id.size(); i++) {
+            Music music = musicMapper.findMusicById(id.get(i));
+            if (music == null) {
+                System.out.println("没有这个 id 的音乐");
+                return new ResponseBodyMessage<>(-1,"没有你要删除的音乐",false);
+            }
+            int ret = musicMapper.deleteMusicById(id.get(i));
+            if (ret == 1) {
+                //删除服务器音乐
+                int index = music.getUrl().lastIndexOf("=");
+                String fileName = music.getUrl().substring(index + 1);
+                File file = new File(SAVE_PATH + fileName + ".mp3");
+                if (file.delete()) {
+                    sum += ret;
+                } else {
+                    return new ResponseBodyMessage<>(-1,"服务器音乐删除失败！",false);
+                }
+            } else {
+                return new ResponseBodyMessage<>(-1,"数据库音乐删除失败！",false);
+            }
+        }
+        if (sum == id.size()) {
+            System.out.println("全部删除成功！");
+            return new ResponseBodyMessage<>(0, "音乐删除成功！", true);
+        } else {
+            return new ResponseBodyMessage<>(-1,"音乐删除失败！",false);
+        }
     }
 }
