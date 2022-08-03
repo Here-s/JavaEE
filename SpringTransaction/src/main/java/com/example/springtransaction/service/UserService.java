@@ -12,7 +12,8 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
-    public int add(UserInfo userInfo) {
+    public int add(UserInfo userInfo) throws InterruptedException {
+        Thread.sleep(3000);
         return userMapper.add(userInfo);
     }
 }
