@@ -1,13 +1,17 @@
 package com.example.springtransaction.controller;
 
 
+import com.example.springtransaction.mapper.LogMapper;
+import com.example.springtransaction.model.LogInfo;
 import com.example.springtransaction.model.UserInfo;
+import com.example.springtransaction.service.LogService;
 import com.example.springtransaction.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +24,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private LogService logService;
 
     @Resource
     private DataSourceTransactionManager transactionManager;
@@ -71,6 +78,38 @@ public class UserController {
         System.out.println("add 受影响的行数：" + result);
         int num = 10/0;//程序出现异常之后，事务就会回滚
         return result;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @RequestMapping("/add3")
+    public int add3(UserInfo userInfo) throws InterruptedException {
+        if (userInfo == null || !StringUtils.hasLength(userInfo.getUsername())
+                || !StringUtils.hasLength(userInfo.getPassword())) {
+            return 0;
+        }
+        int userResult = userService.add(userInfo);
+        System.out.println("添加用户：" + userResult);
+        LogInfo logInfo = new LogInfo();
+        logInfo.setName("添加用户");
+        logInfo.setDesc("添加用户结果：" + userResult);
+        int logResult = logService.add(logInfo);
+        return userResult;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @RequestMapping("/add4")
+    public int add4(UserInfo userInfo) throws InterruptedException {
+        if (userInfo == null || !StringUtils.hasLength(userInfo.getUsername())
+                || !StringUtils.hasLength(userInfo.getPassword())) {
+            return 0;
+        }
+        int userResult = userService.add(userInfo);
+        System.out.println("添加用户：" + userResult);
+        LogInfo logInfo = new LogInfo();
+        logInfo.setName("添加用户");
+        logInfo.setDesc("添加用户结果：" + userResult);
+        int logResult = logService.add(logInfo);
+        return userResult;
     }
 
     //Spring 事务隔离级别：
