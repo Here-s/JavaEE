@@ -26,4 +26,13 @@ public class MyExceptionAdvice {
         result.put("msg", "空指针异常：" + e.getMessage());
         return result;
     }
+
+    @ExceptionHandler(Exception.class)
+    public HashMap<String, Object> exceptionAdvice(Exception e) {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("state", -1);
+        result.put("data", null);
+        result.put("msg", "异常：" + e.getMessage());
+        return result;
+    }
 }

@@ -8,7 +8,7 @@ public class UnifiedFunctionApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(UnifiedFunctionApplication.class, args);
-        //统一功能处理，就像用户登录校验，统一异常处理
+        //统一功能处理，就像用户登录校验，统一异常处理。统一数据处理
 
         //登录校验 ：通过 Spring 拦截器来实现用户的统一登陆验证
         // 1、实现自定义拦截器，实现 Spring 中的 HandlerInterceptor 接口的 preHandle 方法
@@ -20,6 +20,10 @@ public class UnifiedFunctionApplication {
         //统一异常处理
         // 1、给当前的类上加 @ControllerAdvice 注解
         // 2、给方法加 @ExceptionHandler(xxx.class) 注解，添加异常返回的业务代码
+
+        //统一数据处理
+        // 1、给当前类添加 @ControllerAdvice
+        // 2、实现 ResponseBodyAdvice 重写实现方法
     }
 
 }

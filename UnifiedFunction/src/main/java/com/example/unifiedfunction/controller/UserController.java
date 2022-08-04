@@ -24,6 +24,11 @@ public class UserController {
         return result;
     }
 
+    @RequestMapping( "/reg")
+    public int reg() {
+        return 1;
+    }
+
     @RequestMapping("/index")
     public String index(HttpServletRequest request, String username, String password) {
         return "hello index";
@@ -39,6 +44,13 @@ public class UserController {
     public String index3() {
         Object obj = null;
         System.out.println(obj.hashCode());
+        return "hello index2";
+    }
+
+    @RequestMapping("/index4")
+    public String index4() {
+        String obj = "aaa";
+        System.out.println(Integer.valueOf(obj));
         return "hello index2";
     }
 }
