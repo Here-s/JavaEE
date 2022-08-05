@@ -190,4 +190,16 @@ public class MusicController {
             return new ResponseBodyMessage<>(-1,"音乐删除失败！",false);
         }
     }
+
+    @RequestMapping("/findmusic")
+    public ResponseBodyMessage<List<Music>> findMusic(@RequestParam(required = false) String musicname) {
+
+        List<Music> musicList = null;
+        if (musicname != null) {
+            musicList = musicMapper.findMusicByName(musicname);
+        } else {
+            musicList = musicMapper.findMusic();
+        }
+        return new ResponseBodyMessage<>(0, "查询到了所有的音乐！", musicList);
+    }
 }

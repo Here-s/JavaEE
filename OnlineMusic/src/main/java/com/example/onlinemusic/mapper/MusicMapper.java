@@ -3,6 +3,8 @@ package com.example.onlinemusic.mapper;
 import com.example.onlinemusic.model.Music;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface MusicMapper {
     /**
@@ -30,4 +32,16 @@ public interface MusicMapper {
      * @return
      */
     int deleteMusicById(int musicId);
+
+    /**
+     * 查询所有的音乐
+     * @return
+     */
+    List<Music> findMusic();
+
+    /**
+     * 查询指定 name 的音乐
+     * @return
+     */
+    List<Music> findMusicByName(String name);
 }
