@@ -3,10 +3,19 @@
 <mapper namespace="com.example.onlinemusic.mapper.LoveMusicMapper">
 
     <select id="findLoveMusic" resultType="com.example.onlinemusic.model.Music">
-        select * from lovemusic where user_id=#{userid} and music_id=#{musicid};
+        select * from lovemusic where user_id=#{userId} and music_id=#{musicId};
     </select>
-    
+
     <insert id="insertLoveMusic">
-        insert into lovemusic (user_id,music_id) values (#{userid},#{musicid});
+        insert into lovemusic (user_id,music_id) values (#{userId},#{musicId});
     </insert>
+
+    <select id="findLoveMusicByUserId" resultType="com.example.onlinemusic.model.Music">
+        select m.* from lovemusic lm, music m where m.id = lm.music_id and lm.user_id = #{userId};
+    </select>
+
+    <select id="findLoveMusicByKeyAndUID" resultType="com.example.onlinemusic.model.Music">
+        select m.* from lovemusic lm, music m where m.id = lm.music_id and lm.user_id = #{userId}
+         and title like concat('%',#{musicname},'%');
+    </select>
 </mapper>
