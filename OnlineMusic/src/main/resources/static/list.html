@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!-- 网页使用的语言 -->
+<html lang="zh-CN">
+<head>
+    <!-- 指定字符集 -->
+    <meta charset="utf-8">
+    <!-- 使用Edge最新的浏览器的渲染方式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- viewport视口：网页可以根据设置的宽度自动进行适配，在浏览器的内部虚拟一个容器，容器的宽度与设备的宽度相同。
+    width: 默认宽度与设备的宽度相同
+    initial-scale: 初始的缩放比，为1:1 -->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+
+    <title>在线音乐服务器</title>
+
+    <link rel="shortcut icon" href="#" />
+
+    <!-- 1. 导入CSS的全局样式 -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- 2. jQuery导入，建议使用1.9以上的版本 -->
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <!-- 3. 导入bootstrap的js文件 -->
+   <!-- <script src="js/bootstrap.min.js"></script>-->
+    <style type="text/css">
+        td, th {
+            text-align: center;
+        }
+    </style>
+
+    <style>
+        #body {
+            background-image: url("images/2.png");
+            background-size:100% 100%;
+            background-attachment: fixed;
+        }
+    </style>
+
+    <script type="text/javascript">
+        <!-- 核心代码实现 -->
+		$(function (){
+            load();
+        });
+
+        //musicName 可以传参，也可以不传参数
+        function load(musicName) {
+            $.ajax({
+                url:"/music/findmusic",
+                data:("musicName":musicName),
+                type:"GET",
+                dataType:"JSON",
+                success:function (obj) {
+                    console.log(obj);
+                }
+            });
+        }
+    </script>
+</head>
+
+<body id="body">
+<div class="container">
+    <h3  style="text-align: center; font-weight: 900">OnlineMusic</h3>
+    <div style="float: left;">
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="exampleInputName2">歌曲名</label>
+                <input name="name" type="text" class="form-control" id="exampleInputName2" >
+            </div>
+            <button id="submit1" type="button" class="btn btn-primary">查询</button>
+        </form>
+    </div>
+    <div style="float: right;margin-bottom: 15px">
+        <a class="btn btn-primary" href="loveMusic.html">喜欢列表</a>
+        <a class="btn btn-primary" href="upload.html">添加歌曲</a>
+        <a id="delete" class="btn btn-primary">删除选中</a>
+    </div>
+    <table border="1" class="table table-bordered table-hover">
+        <tr class="success">
+            <th>选择</th>
+            <th>歌名</th>
+            <th>歌手</th>
+            <th>歌曲</th>
+            <th>操作</th>
+        </tr>
+        <tbody id="info" valign="middle">
+
+        </tbody>
+    </table>
+</div>
+</body>
+
+
+</html>

@@ -1,5 +1,6 @@
 package com.example.onlinemusic.controller;
 
+import com.example.onlinemusic.mapper.LoveMusicMapper;
 import com.example.onlinemusic.mapper.MusicMapper;
 import com.example.onlinemusic.model.Music;
 import com.example.onlinemusic.model.User;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
@@ -34,10 +36,13 @@ public class MusicController {
     @Autowired
     private MusicMapper musicMapper;
 
+    @Autowired
+    private LoveMusicMapper loveMusicMapper;
+
     @RequestMapping("/upload")
     public ResponseBodyMessage<Boolean> insertMusic(@RequestParam String singer,
-                                                    @RequestParam("filename") MultipartFile file,
-                                                    HttpServletRequest request) throws IOException {
+                    @RequestParam("filename") MultipartFile file,
+                    HttpServletRequest request, HttpServletResponse response) throws IOException {
         //检查是否登录
         HttpSession httpSession = request.getSession(false);
         if (httpSession == null || httpSession.getAttribute(Constant.USERINFO_SESSION_KEY) == null) {
@@ -88,6 +93,8 @@ public class MusicController {
             int ret = 0;
             ret = musicMapper.insert(title,singer,time,url,userid);
             if (ret == 1) {
+                //上传成功之后，跳转到音乐列表页面
+                response.sendRedirect("/list.html");
                 return new ResponseBodyMessage<>(0, "数据库上传成功！", true);
             } else {
                 return new ResponseBodyMessage<>(-1,"数据库上传失败！",false);
@@ -143,6 +150,8 @@ public class MusicController {
                 File file = new File(SAVE_PATH + fileName + ".mp3");
                 System.out.println(file);
                 if (file.delete()) {
+                    //也同步要删除喜欢的 id 里面的音乐
+                    loveMusicMapper.deleteLoveMusicByMusicId(Id);
                     return new ResponseBodyMessage<>(0, "服务器音乐删除成功！", true);
                 } else {
                     return new ResponseBodyMessage<>(-1,"服务器音乐删除失败！",false);
@@ -163,12 +172,13 @@ public class MusicController {
     public ResponseBodyMessage<Boolean> deleteSelMusic(@RequestParam("id[]") List<Integer> id) {
         int sum = 0;
         for (int i = 0; i < id.size(); i++) {
-            Music music = musicMapper.findMusicById(id.get(i));
+            int musicId = id.get(i);
+            Music music = musicMapper.findMusicById(musicId);
             if (music == null) {
                 System.out.println("没有这个 id 的音乐");
                 return new ResponseBodyMessage<>(-1,"没有你要删除的音乐",false);
             }
-            int ret = musicMapper.deleteMusicById(id.get(i));
+            int ret = musicMapper.deleteMusicById(musicId);
             if (ret == 1) {
                 //删除服务器音乐
                 int index = music.getUrl().lastIndexOf("=");
@@ -176,6 +186,8 @@ public class MusicController {
                 File file = new File(SAVE_PATH + fileName + ".mp3");
                 if (file.delete()) {
                     sum += ret;
+                    //也要同步删除喜欢的 id 里面的内容
+                    loveMusicMapper.deleteLoveMusicByMusicId(musicId);
                 } else {
                     return new ResponseBodyMessage<>(-1,"服务器音乐删除失败！",false);
                 }

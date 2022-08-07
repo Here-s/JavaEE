@@ -18,4 +18,12 @@
         select m.* from lovemusic lm, music m where m.id = lm.music_id and lm.user_id = #{userId}
          and title like concat('%',#{musicname},'%');
     </select>
+
+    <delete id="deleteLoveMusic" parameterType="java.lang.Integer">
+        delete from lovemusic where user_id=#{userId} and music_id=#{musicId};
+    </delete>
+
+    <delete id="deleteLoveMusicByMusicId">
+        delete from lovemusic where music_id=#{musicId};
+    </delete>
 </mapper>

@@ -69,4 +69,31 @@ public class LoveMusicController {
         }
         return new ResponseBodyMessage<>(0,"已查询到歌曲信息！",musicList);
     }
+
+    /**
+     * 当删除库里面的音乐的时候，也应该把喜欢的音乐删掉
+     * @param id
+     * @param request
+     * @return
+     */
+    @RequestMapping("/deletelovemusic")
+    public ResponseBodyMessage<Boolean> deleteLoveMusic(@RequestParam String id, HttpServletRequest request) {
+        int musicId = Integer.parseInt(id);
+
+        HttpSession httpSession = request.getSession(false);
+        if (httpSession == null || httpSession.getAttribute(Constant.USERINFO_SESSION_KEY) == null) {
+            System.out.println("没有登录！");
+            return new ResponseBodyMessage<>(-1,"请登录后再删除！",null);
+        }
+
+        User user = (User) httpSession.getAttribute(Constant.USERINFO_SESSION_KEY);
+        int userId = user.getId();
+
+        int ret = loveMusicMapper.deleteLoveMusic(userId, musicId);
+        if (ret == 1) {
+            return new ResponseBodyMessage<>(0,"取消收藏成功！",true);
+        } else {
+            return new ResponseBodyMessage<>(-1,"取消收藏失败！",false);
+        }
+    }
 }
