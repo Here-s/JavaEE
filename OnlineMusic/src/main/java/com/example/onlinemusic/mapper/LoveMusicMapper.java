@@ -31,7 +31,7 @@ public interface LoveMusicMapper {
      * 查询当前用户，指定为 musicName 的音乐，支持模糊查询
      * @return
      */
-    List<Music> findLoveMusicByKeyAndUID(String musicName, int userId);
+    List<Music> findLoveMusicByKeyAndUID(String musicname, int userId);
 
     /**
      * 移除当前用户喜欢的音乐

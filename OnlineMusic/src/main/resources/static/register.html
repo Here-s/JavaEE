@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+        <title>音乐播放器登录页面</title>
+
+        <!-- 1. 导入CSS的全局样式 -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <!-- 2. jQuery导入，建议使用1.9以上的版本 -->
+        <script src="js/jquery-3.1.1.min.js"></script>
+        <script src="js/md5.min.js"></script>
+        <!-- 3. 导入bootstrap的js文件 -->
+        <!--<script src="js/bootstrap.min.js"></script>-->
+        <script type="text/javascript"></script>
+        <style>
+            #body{
+                background-image: url("images/3.png");
+                background-size:100% 100%;
+                background-attachment: fixed;
+            }
+        </style>
+        <script>
+            <!-- 核心业务逻辑 -->
+            $(function () {
+                $("#submit").click(function () {
+                    let username = $("#user").val();
+                    let password = $("#password").val();
+
+                    if (username.trim() == "" || password.trim() == "") {
+                        alert("用户名或密码不能为空！");
+                        return;
+                    }
+
+                    $.ajax({
+                        url:"user/login",
+                        data:{"username":username,"password":password},
+                        type:"POST",
+                        dataType:"JSON", //服务器返回 JSON
+                        success:function (data) {
+                            console.log(data);
+                            if (data.status == 0) {
+                                alert("登陆成功！");
+                                //跳转到新的页面
+                                window.location.href="list.html";
+                            } else {
+                                alert("登陆失败，密码或者用户名错误！");
+                                //把账号和密码清空
+                                $("#user").val("");
+                                $("#password").val("");
+                            }
+                        }
+                    });
+                })
+            });
+        </script>
+    </head>
+    <body id="body">
+        <div class="container" style="width: 400px;border-radius: 20px;margin-top: 15%;background-color: rgba(255,255,255,0.8)">
+            <h3 style="text-align: center; ">登录</h3>
+            <!--        <form action="login" method="post">-->
+            <div class="form-group" >
+                <label for="user">用户名：</label>
+                <input type="text" name="username" class="form-control" id="user" placeholder="请输入用户名"/>
+            </div>
+
+            <div class="form-group">
+                <label for="password">密码：</label>
+                <input type="password" name="password" class="form-control" id="password" placeholder="请输入密码"/>
+            </div>
+
+            <div class="form-group">
+                <label for="password">确认密码：</label>
+                <input type="password" name="password" class="form-control" id="password" placeholder="再次输入密码"/>
+            </div>
+
+            <hr/>
+            <div class="form-group" style="text-align: center;"><!--class="form-group"-->
+                <input style="width: 200px;height: 40px" id="submit" class="btn btn btn-primary" type="button" value="注册" >
+            </div>
+            <!--	  	</form>-->
+            <!-- 出错显示的信息框 -->
+            <!--<div class="alert alert-warning alert-dismissible" role="alert">-->
+            <!--  <button type="button" class="close" data-dismiss="alert" >-->
+            <!--  	<span>&times;</span>-->
+            <!--  </button>-->
+            <!--   &lt;!&ndash;<strong id="message">您尚未进行登录，请您登录!</strong>&ndash;&gt;-->
+            <!--</div>-->
+            <!--<style>-->
+            <!--	a {-->
+            <!--		text-align: center-->
+            <!--	}-->
+            <!--</style>-->
+
+        </div>
+    </body>
+</html>

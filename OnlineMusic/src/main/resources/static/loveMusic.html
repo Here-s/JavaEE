@@ -37,7 +37,69 @@
         }
     </style>
     <script>
-        
+        $(function (){
+            load();
+        });
+
+        //musicName 可以传参，也可以不传参数
+        function load(musicname) {
+            $.ajax({
+                url: "/lovemusic/findlovemusic",
+                data: {"musicname": musicname},
+                type: "GET",
+                dataType: "JSON",
+                success: function (obj) {
+                    console.log(obj);
+                    let data = obj.data;
+                    let s = '';
+                    for (var i = 0; i < data.length; i++) {
+                        let musicUrl = data[i].url + ".mp3";
+                        console.log(musicUrl);
+                        s += '<tr>';
+                        s += '<td>' + data[i].title + '</td>';
+                        s += '<td>' + data[i].singer + '</td>';
+                        s += '<td> <button class="btn btn-primary" onclick="playerSong(\'' + musicUrl + '\')">播放歌曲</button>' + '</td>';
+
+                        s += '<td> <button class="btn btn-primary" onclick="deleteInfo(' + data[i].id + ')">取消喜欢</button>' + '</td>';
+                        s += '</tr>';
+                    }
+                    $("#info").html(s);
+                }
+            });
+        }
+        function playerSong(obj) {
+            let name = obj.substring(obj.lastIndexOf("=")+1);
+            //obj 播放音乐的地址  name 播放音乐的名称  0 是播放时间  false 是不自动播放
+            SewisePlayer.toPlay(obj, name, 0, true);
+        }
+
+        function deleteInfo(obj) {
+            console.log(obj);
+            $.ajax({
+                url: "/lovemusic/deletelovemusic",
+                type: "POST",
+                data: {"id":obj},
+                dataType: "JSON",
+                success: function (val) {
+                    console.log(val);
+
+                    if (val.data == true) {
+                        //删除成功
+                        alert("删除成功！将重新加载当前页面！");
+                        window.location.href = "loveMusic.html";
+                    } else {
+                        alert("删除失败！")
+                    }
+                }
+            });
+        }
+
+        $(function () {
+            $("#submit1").click(function () {
+                let name = $("#exampleInputName2").val();
+                load(name);
+            });
+        });
     </script>
 </head>
 <body>
@@ -64,24 +126,24 @@
         </tr>
         <tbody id="info" valign="middle">
 		
-		<tr>
-            <td>成都</td>
-            <td>赵雷</td>
-            <td><button class="btn btn-primary" onclick="playerSong('+musicUrl+')">播放歌曲</button></td>
-            <td><button class="btn btn-primary" onclick="deleteInfo('+musicUrl+')">删除</button></td>
-        </tr>
-
-        <tr>
-            <td>成都</td>
-            <td>赵雷</td>
-            <td><button class="btn btn-primary" onclick="playerSong('+musicUrl+')">播放歌曲</button></td>
-            <td><button class="btn btn-primary" onclick="deleteInfo('+musicUrl+')">删除</button></td>
-        </tr>
-		
 		
         </tbody>
     </table>
 </div>
 </body>
-
+    <div style="width: 180px; height: 140px; position:absolute; bottom:10px; right:10px">
+        <script type="text/javascript" src="player/sewise.player.min.js"></script>
+        <script type="text/javascript">
+            SewisePlayer.setup({
+                server: "vod",
+                type: "mp3",
+                //这里是默认的一个网址
+                videourl:"http://jackzhang1204.github.io/materials/where_did_time_go.mp3",
+                //这里是皮肤
+                skin: "vodWhite",
+                //这里需要设置 false，就不会自动播放了
+                autostart:"false",
+            });
+        </script>
+    </div>
 </html>

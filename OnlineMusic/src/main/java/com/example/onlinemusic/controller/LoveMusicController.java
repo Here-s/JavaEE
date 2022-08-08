@@ -50,7 +50,7 @@ public class LoveMusicController {
 
     @RequestMapping("/findlovemusic")
     public ResponseBodyMessage<List<Music>> findLoveMusic (@RequestParam(required = false)
-               String musicName, HttpServletRequest request) {
+               String musicname, HttpServletRequest request) {
         HttpSession httpSession = request.getSession(false);
         if (httpSession == null || httpSession.getAttribute(Constant.USERINFO_SESSION_KEY) == null) {
             System.out.println("没有登录！");
@@ -62,10 +62,10 @@ public class LoveMusicController {
         System.out.println("userId：" + userId);
 
         List<Music> musicList = null;
-        if (musicName == null) {
+        if (musicname == null) {
             musicList = loveMusicMapper.findLoveMusicByUserId(userId);
         } else {
-            musicList = loveMusicMapper.findLoveMusicByKeyAndUID(musicName, userId);
+            musicList = loveMusicMapper.findLoveMusicByKeyAndUID(musicname, userId);
         }
         return new ResponseBodyMessage<>(0,"已查询到歌曲信息！",musicList);
     }
