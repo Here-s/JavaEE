@@ -18,7 +18,7 @@
         <script type="text/javascript"></script>
         <style>
             #body{
-                background-image: url("images/3.png");
+                background-image: url("images/5.png");
                 background-size:100% 100%;
                 background-attachment: fixed;
             }
@@ -28,26 +28,29 @@
             $(function () {
                 $("#submit").click(function () {
                     let username = $("#user").val();
-                    let password = $("#password").val();
+                    let password1 = $("#password1").val();
+                    let password2 = $("#password2").val();
 
-                    if (username.trim() == "" || password.trim() == "") {
-                        alert("用户名或密码不能为空！");
+                    if (username.trim() == "" || password1.trim() == "" || password2.trim() == "") {
+                        alert("用户名或两次密码密码不能为空！");
                         return;
                     }
 
+                    if (password1 === password2) {
+                    }
                     $.ajax({
-                        url:"user/login",
-                        data:{"username":username,"password":password},
+                        url:"user/register",
+                        data:{"username":username,"password1":password1,"password2":password2},
                         type:"POST",
                         dataType:"JSON", //服务器返回 JSON
                         success:function (data) {
                             console.log(data);
                             if (data.status == 0) {
-                                alert("登陆成功！");
+                                alert("注册成功！");
                                 //跳转到新的页面
-                                window.location.href="list.html";
+                                window.location.href="login.html";
                             } else {
-                                alert("登陆失败，密码或者用户名错误！");
+                                alert("注册失败，两次输入的密码不一样！");
                                 //把账号和密码清空
                                 $("#user").val("");
                                 $("#password").val("");
@@ -60,7 +63,7 @@
     </head>
     <body id="body">
         <div class="container" style="width: 400px;border-radius: 20px;margin-top: 15%;background-color: rgba(255,255,255,0.8)">
-            <h3 style="text-align: center; ">登录</h3>
+            <h3 style="text-align: center; ">注册</h3>
             <!--        <form action="login" method="post">-->
             <div class="form-group" >
                 <label for="user">用户名：</label>
@@ -68,13 +71,13 @@
             </div>
 
             <div class="form-group">
-                <label for="password">密码：</label>
-                <input type="password" name="password" class="form-control" id="password" placeholder="请输入密码"/>
+                <label for="password1">密码：</label>
+                <input type="password" name="password" class="form-control" id="password1" placeholder="请输入密码"/>
             </div>
 
             <div class="form-group">
-                <label for="password">确认密码：</label>
-                <input type="password" name="password" class="form-control" id="password" placeholder="再次输入密码"/>
+                <label for="password2">确认密码：</label>
+                <input type="password" name="password" class="form-control" id="password2" placeholder="再次输入密码"/>
             </div>
 
             <hr/>

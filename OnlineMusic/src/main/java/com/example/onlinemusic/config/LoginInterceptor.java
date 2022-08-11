@@ -18,6 +18,10 @@ public class LoginInterceptor implements HandlerInterceptor {
             System.out.println("没有登录！");
             return true;
         }
+        response.sendRedirect("login.html");
         return false;
     }
+
+
+
 }

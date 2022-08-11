@@ -8,4 +8,6 @@ public interface UserMapper {
     User login(User loginUser);
 
     User selectByName(String  username);
+
+    Boolean registerUser(String username, String password);
 }

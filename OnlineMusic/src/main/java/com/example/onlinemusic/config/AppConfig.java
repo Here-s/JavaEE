@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
@@ -22,7 +23,6 @@ public class AppConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         //登陆之后才能访问
         LoginInterceptor loginInterceptor = new LoginInterceptor();
-
         registry.addInterceptor(loginInterceptor)
                 .addPathPatterns("/**")
                 //排除所有的JS
@@ -33,9 +33,10 @@ public class AppConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/fronts/**")
                 .excludePathPatterns("/player/**")
                 .excludePathPatterns("/login.html")
+                .excludePathPatterns("/register.html")
                 //排除登录接口
-                .excludePathPatterns("/user/login");
-
-
+                .excludePathPatterns("/user/login")
+                .excludePathPatterns("/user/register");
     }
+
 }

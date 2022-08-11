@@ -9,4 +9,8 @@
     <select id="selectByName" resultType="com.example.onlinemusic.model.User">
         select * from user where username=#{username};
     </select>
+
+    <insert id="registerUser" >
+        insert into user(username,password) values (#{username},#{password});
+    </insert>
 </mapper>

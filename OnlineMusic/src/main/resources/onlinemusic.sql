@@ -3,6 +3,8 @@
 -- music表：id（不可重复），名字，作者，上传时间，存储位置，上传者
 -- lovemusic表：id（不可重复），userid，musicid
 
+create databases `onlinemusic` character set utf8;
+
 -- user 表
 create table `user` (
     `id` int primary key auto_increment ,
