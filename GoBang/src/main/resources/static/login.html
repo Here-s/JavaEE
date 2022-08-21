@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <div class="nav">
+        五子棋对战
+    </div>
+    <div class="login-container">
+        <!-- 登录界面的对话框 -->
+        <div class="login-dialog">
+            <!-- 提示信息 -->
+            <h3>登录</h3>
+            <!-- 这个表示一行 -->
+            <div class="row">
+                <span>用户名</span>
+                <input type="text" id="username">
+            </div>
+            <!-- 这是另一行 -->
+            <div class="row">
+                <span>密码</span>
+                <input type="password" id="password">
+            </div>
+            <!-- 提交按钮 -->
+            <div class="row">
+                <button id="submit">提交</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="./js/jquery.min.js"></script>
+    <script>
+        let usernameInput = document.querySelector('#username');
+        let passwordInput = document.querySelector('#password');
+        let submitButton = document.querySelector('#submit');
+        submitButton.onclick = function() {
+            $.ajax({
+                type: 'post',
+                url: '/login',
+                data: {
+                    username: usernameInput.value,
+                    password: passwordInput.value,
+                },
+                success: function(body) {
+                    // 请求执行成功之后的回调函数
+                    // 判定当前是否登录成功~
+                    // 如果登录成功, 服务器会返回当前的 User 对象. 
+                    // 如果登录失败, 服务器会返回一个空的 User 对象. 
+                    if (body && body.userId > 0) {
+                        // 登录成功
+                        alert("登录成功!");
+                        // 重定向跳转到 "游戏大厅页面".
+                        location.assign('/game_hall.html');
+                    } else {
+                        alert("登录失败!");
+                    }
+                },
+                error: function() {
+                    // 请求执行失败之后的回调函数
+                    alert("登录失败!");
+                }
+            });
+        }
+    </script>
+</body>
+</html>

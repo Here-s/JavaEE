@@ -1,0 +1,9 @@
+#screen {
+    width: 450px;
+    height: 50px;
+    margin-top: 10px;
+    background-color: #fff;
+    font-size: 22px;
+    line-height: 50px;
+    text-align: center;
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TestAPI</title>
+</head>
+<body>
+    <input type="text" id="message">
+    <button id="submit">提交</button>
+
+    <script>
+        // 创建 websocket 实例
+        let websocket = new WebSocket("ws://127.0.0.1:8080/test");
+        // 需要给实例挂载一些回调函数
+        websocket.onopen = function() {
+            console.log("连接建立");
+        }
+
+        websocket.onmessage = function(e) {
+            console.log("收到消息: " + e.data);
+        }
+
+        websocket.onerror = function() {
+            console.log("连接异常");
+        }
+
+        websocket.onclose = function() {
+            console.log("连接关闭");
+        }
+
+        // 实现点击按钮后, 通过 websocket 发送请求
+        let input = document.querySelector('#message');
+        let button = document.querySelector('#submit');
+        button.onclick = function() {
+            console.log("发送消息: " + input.value);
+            websocket.send(input.value);
+        }
+    </script>
+</body>
+</html>
