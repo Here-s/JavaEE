@@ -21,6 +21,7 @@ html, body {
     background-color: rgb(50, 50, 50);
     color: white;
 
+    text-align: center;
     line-height: 50px;
     padding-left: 20px;
 }

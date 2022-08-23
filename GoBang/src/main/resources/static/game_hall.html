@@ -19,7 +19,6 @@
     <div class="nav">五子棋对战</div>
     <!-- 整个页面的容器元素 -->
     <div class="container">
-        <!-- 这个 div 在 container 中是处于垂直水平居中这样的位置的 -->
         <div>
             <!-- 展示用户信息 -->
             <div id="screen"></div>
@@ -36,15 +35,14 @@
             success: function(body) {
                 let screenDiv = document.querySelector('#screen');
                 screenDiv.innerHTML = '玩家: ' + body.username + " 分数: " + body.score 
-                    + "<br> 比赛场次: " + body.totalCount + " 获胜场数: " + body.winCount
+                    + "<br> 比赛场次: " + body.totalcount + " 获胜场数: " + body.wincount
             },
             error: function() {
                 alert("获取用户信息失败!");
             }
         });
 
-        // 此处进行初始化 websocket, 并且实现前端的匹配逻辑. 
-        // 此处的路径必须写作 /findMatch, 千万不要写作 /findMatch/ 
+        // 此处进行初始化 websocket, 并且实现匹配逻辑.
         let websocketUrl = 'ws://' + location.host + '/findMatch';
         let websocket = new WebSocket(websocketUrl);
         websocket.onopen = function() {
@@ -61,9 +59,9 @@
             websocket.close();
         }
 
-        // 一会重点来实现, 要处理服务器返回的响应
+        // 处理服务器返回的响应
         websocket.onmessage = function(e) {
-            // 处理服务器返回的响应数据. 这个响应就是针对 "开始匹配" / "结束匹配" 来对应的
+            // 处理服务器返回的响应数据. 针对 "开始匹配"/"结束匹配"
             // 解析得到的响应对象. 返回的数据是一个 JSON 字符串, 解析成 js 对象
             let resp = JSON.parse(e.data);
             let matchButton = document.querySelector('#match-button');
@@ -74,7 +72,7 @@
             if (resp.message == 'startMatch') {
                 // 开始匹配请求发送成功
                 console.log("进入匹配队列成功!");
-                matchButton.innerHTML = '匹配中...(点击停止)'
+                matchButton.innerHTML = '匹配中...(点击停止)';
             } else if (resp.message == 'stopMatch') {
                 // 结束匹配请求发送成功
                 console.log("离开匹配队列成功!");
@@ -95,10 +93,10 @@
         // 给匹配按钮添加一个点击事件
         let matchButton = document.querySelector('#match-button');
         matchButton.onclick = function() {
-            // 在触发 websocket 请求之前, 先确认下 websocket 连接是否好着呢~~ 
+            // 在触发 websocket 请求之前, 先确认下 websocket 是否连接
             if (websocket.readyState == websocket.OPEN) {
-                // 如果当前 readyState 处在 OPEN 状态, 说明连接好着的~
-                // 这里发送的数据有两种可能, 开始匹配/停止匹配~
+                // 如果当前 readyState 处在 OPEN 状态, 说明已连接
+                // 这里发送的数据有两种可能, 开始匹配/停止匹配
                 if (matchButton.innerHTML == '开始匹配') {
                     console.log("开始匹配");
                     websocket.send(JSON.stringify({

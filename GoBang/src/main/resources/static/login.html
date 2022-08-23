@@ -32,6 +32,9 @@
             <div class="row">
                 <button id="submit">提交</button>
             </div>
+            <div class="reg">
+                <a href="register.html">立即注册</a>
+            </div>
         </div>
 
     </div>
@@ -50,11 +53,9 @@
                     password: passwordInput.value,
                 },
                 success: function(body) {
-                    // 请求执行成功之后的回调函数
-                    // 判定当前是否登录成功~
                     // 如果登录成功, 服务器会返回当前的 User 对象. 
                     // 如果登录失败, 服务器会返回一个空的 User 对象. 
-                    if (body && body.userId > 0) {
+                    if (body.userid > 0 && body) {
                         // 登录成功
                         alert("登录成功!");
                         // 重定向跳转到 "游戏大厅页面".

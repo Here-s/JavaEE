@@ -34,7 +34,39 @@
     font-weight: 700;
 }
 
+.login-dialog .reg {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 #username, #password {
+    width: 200px;
+    height: 40px;
+
+    font-size: 20px;
+    line-height: 40px;
+    padding-left: 10px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+}
+
+#username, #password1 {
+    width: 200px;
+    height: 40px;
+
+    font-size: 20px;
+    line-height: 40px;
+    padding-left: 10px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+}
+
+#username, #password2 {
     width: 200px;
     height: 40px;
 
