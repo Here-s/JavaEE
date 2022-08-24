@@ -30,7 +30,11 @@
             </div>
             <div class="row">
                 <span>密码</span>
-                <input type="password" id="password">
+                <input type="password" id="password1">
+            </div>
+            <div class="row">
+                <span>密码</span>
+                <input type="password" id="password2">
             </div>
             <!-- 提交按钮 -->
             <div class="row">
@@ -42,18 +46,21 @@
     <script src="js/jquery.min.js"></script>
     <script>
         let usernameInput = document.querySelector('#username');
-        let passwordInput = document.querySelector('#password');
+        let passwordInput1 = document.querySelector('#password1');
+        let passwordInput2 = document.querySelector('#password2');
         let submitButton = document.querySelector('#submit');
-        submitButton.onclick = function() {
+
+        submitButton.onclick = function () {
             $.ajax({
                 type: 'post',
                 url: '/register',
                 data: {
                     username: usernameInput.value,
-                    password: passwordInput.value,
+                    password1: passwordInput1.value,
+                    password2: passwordInput2.value,
                 },
-                success: function(body) {
-                    // 如果注册成功, 就会返回一个新注册好的用户对象. 
+                success: function (body) {
+                    // 如果注册成功, 就会返回一个新注册好的用户对象.
                     if (body && body.username) {
                         // 注册成功!
                         alert("注册成功!")
@@ -61,13 +68,12 @@
                     } else {
                         alert("注册失败!");
                     }
-                }, 
-                error: function() {
+                },
+                error: function () {
                     alert("注册失败!");
                 }
             });
         }
-
     </script>
 </body>
 </html>

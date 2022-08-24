@@ -7,7 +7,7 @@ drop table if exists user;
 create table user (
     userid     int primary key auto_increment,
     username   varchar(50) unique,
-    password   varchar(50),
+    password   varchar(500),
     score      int, -- 比赛积分
     totalcount int, -- 比赛总次数
     wincount int -- 获胜场数

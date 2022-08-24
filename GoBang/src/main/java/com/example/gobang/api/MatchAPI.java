@@ -1,5 +1,6 @@
 package com.example.gobang.api;
 
+import com.example.gobang.game.MatchRequest;
 import com.example.gobang.game.MatchResponse;
 import com.example.gobang.game.OnlineUserManager;
 import com.example.gobang.model.User;
@@ -30,6 +31,18 @@ public class MatchAPI extends TextWebSocketHandler {
         // 但是用户可能为空
         try {
             User user = (User) session.getAttributes().get("user");
+
+            //判断用户是否已登录，如果已登录，其他地方就不能登了
+            WebSocketSession socketSession = onlineUserManager.getFromGameHall(user.getUserid());
+            if (socketSession != null) {
+                //已登录，通知客户端，不能登录
+                MatchResponse response = new MatchResponse();
+                response.setOk(false);
+                response.setReason("当前账号已登录，不能再次登录！");
+                session.sendMessage(new TextMessage(objectMapper.writeValueAsString(response)));
+                return;
+            }
+
             //设置玩家为在线状态
             onlineUserManager.enterGameHall(user.getUserid(), session);
             System.out.println("玩家：" + user.getUsername() + " 进入游戏大厅！");
@@ -45,7 +58,28 @@ public class MatchAPI extends TextWebSocketHandler {
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-
+        //实现匹配请求和停止匹配请求
+        User user = (User) session.getAttributes().get("user");
+        //获取到客户端给服务器发送的数据
+        String payload = message.getPayload();
+        //把 JSON 字符串转化成 Java 对象
+        MatchRequest request = objectMapper.readValue(payload, MatchRequest.class);
+        MatchResponse response = new MatchResponse();
+        if (request.getMessage().equals("startMatch")) {
+            //进入比配队列
+            //TODO 先创建一个类表示匹配队列，把当前用户给加进去
+            response.setOk(true);
+            response.setMessage("startMatch");
+        } else if (request.getMessage().equals("stopMatch")) {
+            //退出匹配队列
+            //TODO 先创建一个类表示匹配队列，把当前用户给移除
+            response.setOk(true);
+            response.setMessage("stopMatch");
+        } else {
+            //非法情况
+            response.setOk(false);
+            response.setMessage("方法匹配请求");
+        }
     }
 
     @Override
@@ -53,7 +87,11 @@ public class MatchAPI extends TextWebSocketHandler {
         try {
             //玩家下线，从 websocket 当中删除
             User user = (User) session.getAttributes().get("user");
-            onlineUserManager.exitGameHall(user.getUserid());
+            WebSocketSession tempSession = onlineUserManager.getFromGameHall(user.getUserid());
+            //当前玩家和之前成功上线的玩家一样，才能下线
+            if (tempSession == session) {
+                onlineUserManager.exitGameHall(user.getUserid());
+            }
         } catch (NullPointerException e) {
             e.printStackTrace();
             //用户未登录，返回 websocket 信息
