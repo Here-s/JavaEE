@@ -2,6 +2,7 @@ package com.example.gobang.api;
 
 import com.example.gobang.game.MatchRequest;
 import com.example.gobang.game.MatchResponse;
+import com.example.gobang.game.Matcher;
 import com.example.gobang.game.OnlineUserManager;
 import com.example.gobang.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,6 +21,9 @@ public class MatchAPI extends TextWebSocketHandler {
 
     @Autowired
     private OnlineUserManager onlineUserManager;
+
+    @Autowired
+    private Matcher matcher;
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -67,12 +71,15 @@ public class MatchAPI extends TextWebSocketHandler {
         MatchResponse response = new MatchResponse();
         if (request.getMessage().equals("startMatch")) {
             //进入比配队列
-            //TODO 先创建一个类表示匹配队列，把当前用户给加进去
+            //把当前用户给加进匹配队列
+            matcher.add(user);
+            //玩家放进去之后，响应给前端
             response.setOk(true);
             response.setMessage("startMatch");
         } else if (request.getMessage().equals("stopMatch")) {
             //退出匹配队列
-            //TODO 先创建一个类表示匹配队列，把当前用户给移除
+            //把当前用户给移除匹配队列
+            matcher.remove(user);
             response.setOk(true);
             response.setMessage("stopMatch");
         } else {
@@ -92,6 +99,8 @@ public class MatchAPI extends TextWebSocketHandler {
             if (tempSession == session) {
                 onlineUserManager.exitGameHall(user.getUserid());
             }
+            //玩家匹配的时候，websocket 断开了，也移除匹配队列
+            matcher.remove(user);
         } catch (NullPointerException e) {
             e.printStackTrace();
             //用户未登录，返回 websocket 信息
@@ -107,7 +116,12 @@ public class MatchAPI extends TextWebSocketHandler {
         try {
             //玩家下线，从 websocket 当中删除
             User user = (User) session.getAttributes().get("user");
-            onlineUserManager.exitGameHall(user.getUserid());
+            WebSocketSession tmpSession = onlineUserManager.getFromGameHall(user.getUserid());
+            if (tmpSession == session) {
+                onlineUserManager.exitGameHall(user.getUserid());
+            }
+            //玩家匹配的时候，websocket 断开了，也移除匹配队列
+            matcher.remove(user);
         } catch (NullPointerException e) {
             e.printStackTrace();
             //用户未登录，返回 websocket 信息
