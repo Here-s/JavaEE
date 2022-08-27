@@ -1,14 +1,11 @@
-let gameInfo = {
+gameInfo = {
     roomId: null,
     thisUserId: null,
     thatUserId: null,
     isWhite: true,
 }
 
-//////////////////////////////////////////////////
-// 设定界面显示相关操作
-//////////////////////////////////////////////////
-
+//设定界面显示相关操作
 function setScreenText(me) {
     let screen = document.querySelector('#screen');
     if (me) {
@@ -18,11 +15,7 @@ function setScreenText(me) {
     }
 }
 
-//////////////////////////////////////////////////
 // 初始化 websocket
-//////////////////////////////////////////////////
-
-// 此处写的路径要写作 /game, 不要写作 /game/
 let websocketUrl = "ws://" + location.host + "/game";
 let websocket = new WebSocket(websocketUrl);
 
@@ -42,7 +35,7 @@ window.onbeforeunload = function() {
     websocket.close();
 }
 
-// 处理服务器返回的响应数据
+//处理服务器返回的响应数据
 websocket.onmessage = function(event) {
     console.log("[handlerGameReady] " + event.data);
     let resp = JSON.parse(event.data);
@@ -53,7 +46,6 @@ websocket.onmessage = function(event) {
         location.assign("/game_hall.html");
         return;
     }
-
     if (resp.message == 'gameReady') {
         gameInfo.roomId = resp.roomId;
         gameInfo.thisUserId = resp.thisUserId;
@@ -70,26 +62,25 @@ websocket.onmessage = function(event) {
     }
 }
 
-//////////////////////////////////////////////////
-// 初始化一局游戏
-//////////////////////////////////////////////////
+//初始化一局游戏
 function initGame() {
-    // 是我下还是对方下. 根据服务器分配的先后手情况决定
+    //是我下还是对方下. 根据服务器分配的先后手情况决定
     let me = gameInfo.isWhite;
-    // 游戏是否结束
+    //游戏是否结束
     let over = false;
     let chessBoard = [];
-    //初始化chessBord数组(表示棋盘的数组)
+    //初始化 chessBord 数组
     for (let i = 0; i < 15; i++) {
         chessBoard[i] = [];
         for (let j = 0; j < 15; j++) {
+            //0 表示可以下棋
             chessBoard[i][j] = 0;
         }
     }
     let chess = document.querySelector('#chess');
     let context = chess.getContext('2d');
     context.strokeStyle = "#BFBFBF";
-    // 背景图片
+    //背景图片
     let logo = new Image();
     logo.src = "image/sky.jpeg";
     logo.onload = function () {
@@ -97,7 +88,7 @@ function initGame() {
         initChessBoard();
     }
 
-    // 绘制棋盘网格
+    //绘制棋盘网格
     function initChessBoard() {
         for (let i = 0; i < 15; i++) {
             context.moveTo(15 + i * 30, 15);
@@ -109,7 +100,7 @@ function initGame() {
         }
     }
 
-    // 绘制一个棋子, me 为 true
+    //绘制一个棋子, me 为 true
     function oneStep(i, j, isWhite) {
         context.beginPath();
         context.arc(15 + i * 30, 15 + j * 30, 13, 0, 2 * Math.PI);
@@ -139,12 +130,12 @@ function initGame() {
         let col = Math.floor(x / 30);
         let row = Math.floor(y / 30);
         if (chessBoard[row][col] == 0) {
-            // 发送坐标给服务器, 服务器要返回结果
+            //发送坐标给服务器, 服务器要返回结果
             send(row, col);
 
-            // 留到浏览器收到落子响应的时候再处理(收到响应再来画棋子)
-            // oneStep(col, row, gameInfo.isWhite);
-            // chessBoard[row][col] = 1;
+            //浏览器收到落子响应的时候再处理(收到响应再来画棋子)
+            //oneStep(col, row, gameInfo.isWhite);
+            //chessBoard[row][col] = 1;
         }
     }
 
@@ -160,7 +151,7 @@ function initGame() {
     }
 
     // 之前 websocket.onmessage 主要是用来处理了游戏就绪响应. 在游戏就绪之后, 初始化完毕之后, 也就不再有这个游戏就绪响应了. 
-    // 就在这个 initGame 内部, 修改 websocket.onmessage 方法~~, 让这个方法里面针对落子响应进行处理!
+    // 就在这个 initGame 内部, 修改 websocket.onmessage 方法, 让这个方法里面针对落子响应进行处理!
     websocket.onmessage = function(event) {
         console.log("[handlerPutChess] " + event.data);
 

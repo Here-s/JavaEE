@@ -26,7 +26,10 @@ public class Matcher {
     @Autowired
     private OnlineUserManager onlineUserManager;
 
-    private ObjectMapper objectMapper;
+    @Autowired
+    private RoomManager roomManager;
+
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     //匹配队列的方法
     public void add(User user) {
@@ -139,7 +142,8 @@ public class Matcher {
                 }
 
                 //把玩家放到一个匹配房间里面
-
+                Room room = new Room();
+                roomManager.add(room, player1.getUserid(), player2.getUserid());
 
                 //告诉玩家匹配到对手了
                 MatchResponse response1 = new MatchResponse();
@@ -152,7 +156,7 @@ public class Matcher {
                 response2.setOk(true);
                 response2.setMessage("matchSuccess");
                 String json2 = objectMapper.writeValueAsString(response2);
-                session1.sendMessage(new TextMessage(json2));
+                session2.sendMessage(new TextMessage(json2));
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {

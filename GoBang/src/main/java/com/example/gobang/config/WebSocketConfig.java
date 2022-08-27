@@ -1,5 +1,6 @@
 package com.example.gobang.config;
 
+import com.example.gobang.api.GameAPI;
 import com.example.gobang.api.MatchAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -14,9 +15,14 @@ public class WebSocketConfig implements WebSocketConfigurer {
     @Autowired
     private MatchAPI matchAPI;
 
+    @Autowired
+    private GameAPI gameAPI;
+
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(matchAPI,"/findMatch")
+                .addInterceptors(new HttpSessionHandshakeInterceptor());
+        registry.addHandler(gameAPI,"/game")
                 .addInterceptors(new HttpSessionHandshakeInterceptor());
     }
 }

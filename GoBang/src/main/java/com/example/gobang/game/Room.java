@@ -36,6 +36,17 @@ public class Room {
     private User user1;
     private User user2;
 
+    public int getWhiteUser() {
+        return whiteUser;
+    }
+
+    public void setWhiteUser(int whiteUser) {
+        this.whiteUser = whiteUser;
+    }
+
+    //先手方
+    private int whiteUser;
+
     public Room() {
         //使用唯一字符串表示房间 id
         //使用 UUID 作为房间 ID

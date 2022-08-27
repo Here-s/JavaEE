@@ -17,7 +17,8 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 //处理匹配过程中的 websocket 请求
 @Component
 public class MatchAPI extends TextWebSocketHandler {
-    private ObjectMapper objectMapper;
+
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     @Autowired
     private OnlineUserManager onlineUserManager;
@@ -37,8 +38,8 @@ public class MatchAPI extends TextWebSocketHandler {
             User user = (User) session.getAttributes().get("user");
 
             //判断用户是否已登录，如果已登录，其他地方就不能登了
-            WebSocketSession socketSession = onlineUserManager.getFromGameHall(user.getUserid());
-            if (socketSession != null) {
+            if (onlineUserManager.getFromGameHall(user.getUserid()) != null ||
+                onlineUserManager.getFromGameRoom(user.getUserid()) != null) {
                 //已登录，通知客户端，不能登录
                 MatchResponse response = new MatchResponse();
                 response.setOk(false);
@@ -85,8 +86,10 @@ public class MatchAPI extends TextWebSocketHandler {
         } else {
             //非法情况
             response.setOk(false);
-            response.setMessage("方法匹配请求");
+            response.setMessage("非法匹配请求");
         }
+        String jsonString = objectMapper.writeValueAsString(response);
+        session.sendMessage(new TextMessage(jsonString));
     }
 
     @Override
