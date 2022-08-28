@@ -14,8 +14,8 @@ public class RoomManager {
 
     public void add(Room room, int userId1, int userId2) {
         rooms.put(room.getRoomId(), room);
-        userIdToRoomId.remove(userId1);
-        userIdToRoomId.remove(userId2);
+        userIdToRoomId.put(userId1, room.getRoomId());
+        userIdToRoomId.put(userId2, room.getRoomId());
     }
 
     public void remove(String roomId, int userId1, int userId2) {

@@ -47,9 +47,17 @@ public class Room {
     //先手方
     private int whiteUser;
 
+    //棋盘，使用 0 表示当前位置没有棋子，1 表示玩家1的棋子，2 表示玩家2的棋子
+    private int board[][] = new int[15][15];
+
     public Room() {
         //使用唯一字符串表示房间 id
         //使用 UUID 作为房间 ID
         roomId = UUID.randomUUID().toString();
+    }
+
+    //处理落子操作   记录落子位置，判断胜负，返回客户端
+    public void putChess(String jsonString) {
+
     }
 }

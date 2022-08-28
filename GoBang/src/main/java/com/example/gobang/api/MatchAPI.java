@@ -42,9 +42,12 @@ public class MatchAPI extends TextWebSocketHandler {
                 onlineUserManager.getFromGameRoom(user.getUserid()) != null) {
                 //已登录，通知客户端，不能登录
                 MatchResponse response = new MatchResponse();
-                response.setOk(false);
+                response.setOk(true);
                 response.setReason("当前账号已登录，不能再次登录！");
+                //说明当前多开了
+                response.setMessage("repeatConnection");
                 session.sendMessage(new TextMessage(objectMapper.writeValueAsString(response)));
+
                 return;
             }
 

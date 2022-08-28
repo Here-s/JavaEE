@@ -1,4 +1,4 @@
-gameInfo = {
+let gameInfo = {
     roomId: null,
     thisUserId: null,
     thatUserId: null,
@@ -57,7 +57,7 @@ websocket.onmessage = function(event) {
         // 设置显示区域的内容
         setScreenText(gameInfo.isWhite);
     } else if (resp.message == 'repeatConnection') {
-        alert("检测到游戏多开! 请使用其他账号登录!");
+        alert("检测到账号多开! 请使用其他账号登录!");
         location.assign("/login.html");
     }
 }

@@ -54,7 +54,7 @@
         websocket.onerror = function() {
             console.log("onerror");
         }
-        // 监听页面关闭事件. 在页面关闭之前, 手动调用这里的 websocket 的 close 方法. 
+        //在页面关闭之前, 手动调用这里的 websocket 的 close 方法.
         window.onbeforeunload = function() {
             websocket.close();
         }
@@ -80,7 +80,6 @@
             } else if (resp.message == 'matchSuccess') {
                 // 已经匹配到对手了. 
                 console.log("匹配到对手! 进入游戏房间!");
-                // location.assign("/game_room.html");
                 location.replace("/game_room.html");
             } else if (resp.message == 'repeatConnection') {
                 alert("当前检测到多开! 请使用其他账号登录!");

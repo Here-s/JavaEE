@@ -120,7 +120,7 @@ public class Matcher {
                 //取出两个玩家
                 User player1 = matchQueue.poll();
                 User player2 = matchQueue.poll();
-                System.out.println("匹配出的两个玩家：" + player1.getUsername() + " " + player2.getUsername());
+                System.out.println("匹配到的两个玩家：" + player1.getUsername() + " " + player2.getUsername());
                 //获取到玩家的 websocket 会话，然后告诉玩家匹配到了
                 WebSocketSession session1 = onlineUserManager.getFromGameHall(player1.getUserid());
                 WebSocketSession session2 = onlineUserManager.getFromGameHall(player2.getUserid());
