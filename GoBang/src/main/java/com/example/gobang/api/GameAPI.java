@@ -1,10 +1,9 @@
 package com.example.gobang.api;
 
-import com.example.gobang.game.GameReadyResponse;
-import com.example.gobang.game.OnlineUserManager;
-import com.example.gobang.game.Room;
-import com.example.gobang.game.RoomManager;
+import com.example.gobang.game.*;
+import com.example.gobang.mapper.UserMapper;
 import com.example.gobang.model.User;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,6 +23,9 @@ public class GameAPI extends TextWebSocketHandler {
 
     @Autowired
     private OnlineUserManager onlineUserManager;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -133,6 +135,9 @@ public class GameAPI extends TextWebSocketHandler {
             onlineUserManager.exitGameRoom(user.getUserid());
         }
         System.out.println("当前用户：" + user.getUsername() + " 游戏房间连接异常!");
+
+        //通知对手获胜
+        noticeThatUserWin(user);
     }
 
     @Override
@@ -148,5 +153,43 @@ public class GameAPI extends TextWebSocketHandler {
             onlineUserManager.exitGameRoom(user.getUserid());
         }
         System.out.println("当前用户：" + user.getUsername() + " 离开游戏房间!");
+
+        //通知对手获胜
+        noticeThatUserWin(user);
+    }
+
+    private void noticeThatUserWin(User user) throws IOException {
+        //根据当前玩家，找到玩家所在的房间
+        Room room = roomManager.getRoomByUserId(user.getUserid());
+        if (room == null) {
+            //说明房间已经释放了
+            System.out.println("房间已经释放");
+            return;
+        }
+
+        //根据房间找到对手
+        User thatUser = (user == room.getUser1()) ? room.getUser2() : room.getUser1();
+        //看对手是否在线
+        WebSocketSession webSocketSession = onlineUserManager.getFromGameRoom(thatUser.getUserid());
+        if (webSocketSession == null) {
+            //说明两个人都掉线了
+            System.out.println("双方都掉线了！");
+            return;
+        }
+        //通知对方
+        GameResponse response = new GameResponse();
+        response.setMessage("putChess");
+        response.setUserId(thatUser.getUserid());
+        response.setWinner(thatUser.getUserid());
+        webSocketSession.sendMessage(new TextMessage(objectMapper.writeValueAsString(response)));
+
+        //更新分数信息
+        int winUserId = thatUser.getUserid();
+        int loseUserId = user.getUserid();
+        userMapper.userWin(winUserId);
+        userMapper.userLose(loseUserId);
+
+        //删掉房间
+        roomManager.remove(room.getRoomId(),room.getUser1().getUserid(), room.getUser2().getUserid());
     }
 }

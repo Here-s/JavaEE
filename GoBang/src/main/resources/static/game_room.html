@@ -18,6 +18,8 @@
 <body>
     <div class="nav">五子棋对战</div>
     <div class="container">
+        <!-- 展示用户信息1 -->
+        <div id="screen1"></div>
         <div>
             <!--canvas 画布 -->
             <canvas id="chess" width="450px" height="450px">
@@ -26,7 +28,40 @@
             <!-- 显示区域 -->
             <div id="screen"> 等待玩家连接中... </div>
         </div>
+
+        <!-- 展示用户信息2 -->
+        <div id="screen2"></div>
     </div>
     <script src="js/script.js"></script>
+
+    <script src="js/jquery.min.js"></script>
+    <script>
+        $.ajax({
+            type: 'get',
+            url: '/userInfo',
+            success: function(body) {
+                let screenDiv = document.querySelector('#screen1');
+                screenDiv.innerHTML = '我方: ' + body.username + "<br> 分数: " + body.score
+                    + "<br> 比赛场次: " + body.totalcount + "<br> 获胜场数: " + body.wincount
+            },
+            error: function() {
+                alert("获取我方用户信息失败!");
+            }
+        });
+    </script>
+    <script>
+        $.ajax({
+            type: 'get',
+            url: '/thatUser',
+            success: function(body) {
+                let screenDiv = document.querySelector('#screen2');
+                screenDiv.innerHTML = '对方: ' + body.username + "<br> 分数: " + body.score
+                    + "<br> 比赛场次: " + body.totalcount + "<br> 获胜场数: " + body.wincount
+            },
+            error: function() {
+                alert("获取对方用户信息失败!");
+            }
+        });
+    </script>
 </body>
 </html>

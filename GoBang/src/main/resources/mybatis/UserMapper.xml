@@ -8,4 +8,15 @@
     <select id="selectByName" resultType="com.example.gobang.model.User">
         select * from user where username = #{username};
     </select>
+
+
+    <update id="userWin">
+        update user set totalCount = totalCount + 1, winCOunt = wincount + 1, score = score + 50
+        where userid = #{userid}
+    </update>
+
+    <update id="userLose">
+        update user set totalCount = totalCount + 1, score = score - 50
+        where userid = #{userid}
+    </update>
 </mapper>

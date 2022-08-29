@@ -7,3 +7,35 @@
     line-height: 50px;
     text-align: center;
 }
+
+#screen1 {
+    width: 100px;
+    height: 180px;
+    font-size: 20px;
+    background-color: gray;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 30px;
+}
+
+#screen2 {
+    width: 100px;
+    height: 180px;
+    font-size: 20px;
+    background-color: gray;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 30px;
+}
+
+button {
+    width: 150px;
+    height: 50px;
+    margin-left: 150px;
+    background-color: floralwhite;
+    font-size: 22px;
+    line-height: 50px;
+    text-align: center;
+}

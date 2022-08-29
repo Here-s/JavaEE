@@ -80,6 +80,7 @@
             } else if (resp.message == 'matchSuccess') {
                 // 已经匹配到对手了. 
                 console.log("匹配到对手! 进入游戏房间!");
+                //这样就不会进行入栈操作了
                 location.replace("/game_room.html");
             } else if (resp.message == 'repeatConnection') {
                 alert("当前检测到多开! 请使用其他账号登录!");

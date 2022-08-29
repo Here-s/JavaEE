@@ -15,7 +15,7 @@ function setScreenText(me) {
     }
 }
 
-// 初始化 websocket
+//初始化 websocket
 let websocketUrl = "ws://" + location.host + "/game";
 let websocket = new WebSocket(websocketUrl);
 
@@ -42,7 +42,7 @@ websocket.onmessage = function(event) {
 
     if (!resp.ok) {
         alert("连接游戏失败! reason: " + resp.reason);
-        // 如果出现连接失败的情况, 回到游戏大厅
+        //如果出现连接失败的情况, 回到游戏大厅
         location.assign("/game_hall.html");
         return;
     }
@@ -52,9 +52,9 @@ websocket.onmessage = function(event) {
         gameInfo.thatUserId = resp.thatUserId;
         gameInfo.isWhite = (resp.whiteUser == resp.thisUserId);
 
-        // 初始化棋盘
+        //初始化棋盘
         initGame();
-        // 设置显示区域的内容
+        //设置显示区域的内容
         setScreenText(gameInfo.isWhite);
     } else if (resp.message == 'repeatConnection') {
         alert("检测到账号多开! 请使用其他账号登录!");
@@ -132,10 +132,6 @@ function initGame() {
         if (chessBoard[row][col] == 0) {
             //发送坐标给服务器, 服务器要返回结果
             send(row, col);
-
-            //浏览器收到落子响应的时候再处理(收到响应再来画棋子)
-            //oneStep(col, row, gameInfo.isWhite);
-            //chessBoard[row][col] = 1;
         }
     }
 
@@ -150,8 +146,7 @@ function initGame() {
         websocket.send(JSON.stringify(req));
     }
 
-    // 之前 websocket.onmessage 主要是用来处理了游戏就绪响应. 在游戏就绪之后, 初始化完毕之后, 也就不再有这个游戏就绪响应了. 
-    // 就在这个 initGame 内部, 修改 websocket.onmessage 方法, 让这个方法里面针对落子响应进行处理!
+    //针对落子响应进行处理!
     websocket.onmessage = function(event) {
         console.log("[handlerPutChess] " + event.data);
 
@@ -161,49 +156,43 @@ function initGame() {
             return;
         }
 
-        // 先判定当前这个响应是自己落的子, 还是对方落的子.
+        //先判定当前这个响应是自己落的子, 还是对方落的子.
         if (resp.userId == gameInfo.thisUserId) {
-            // 我自己落的子
-            // 根据我自己子的颜色, 来绘制一个棋子
+            //我自己落的子。自己子的颜色, 来绘制一个棋子
             oneStep(resp.col, resp.row, gameInfo.isWhite);
         } else if (resp.userId == gameInfo.thatUserId) {
-            // 我的对手落的子
+            //我的对手落的子
             oneStep(resp.col, resp.row, !gameInfo.isWhite);
         } else {
-            // 响应错误! userId 是有问题的!
+            //响应错误! userId 是有问题的!
             console.log('[handlerPutChess] resp userId 错误!');
             return;
         }
 
-        // 给对应的位置设为 1, 方便后续逻辑判定当前位置是否已经有子了. 
+        //给对应的位置设为 1, 方便后续逻辑判定当前位置是否已经有子了.
         chessBoard[resp.row][resp.col] = 1;
 
-        // 交换双方的落子轮次
+        //交换双方的落子轮次
         me = !me;
         setScreenText(me);
 
-        // 判定游戏是否结束
+        //判定游戏是否结束
         let screenDiv = document.querySelector('#screen');
         if (resp.winner != 0) {
             if (resp.winner == gameInfo.thisUserId) {
-                // alert('你赢了!');
                 screenDiv.innerHTML = '你赢了!';
             } else if (resp.winner = gameInfo.thatUserId) {
-                // alert('你输了!');
                 screenDiv.innerHTML = '你输了!';
             } else {
                 alert("winner 字段错误! " + resp.winner);
             }
-            // 回到游戏大厅
-            // location.assign('/game_hall.html');
-
-            // 增加一个按钮, 让玩家点击之后, 再回到游戏大厅~
+            //玩家点击之后, 再回到游戏大厅
             let backBtn = document.createElement('button');
             backBtn.innerHTML = '回到大厅';
             backBtn.onclick = function() {
                 location.replace('/game_hall.html');
             }
-            let fatherDiv = document.querySelector('.container>div');
+            let fatherDiv = document.querySelector('#screen');
             fatherDiv.appendChild(backBtn);
         }
     }

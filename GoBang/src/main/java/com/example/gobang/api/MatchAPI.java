@@ -55,12 +55,7 @@ public class MatchAPI extends TextWebSocketHandler {
             onlineUserManager.enterGameHall(user.getUserid(), session);
             System.out.println("玩家：" + user.getUsername() + " 进入游戏大厅！");
         } catch (NullPointerException e) {
-            e.printStackTrace();
-            //用户未登录，返回 websocket 信息
-            MatchResponse response = new MatchResponse();
-            response.setOk(false);
-            response.setReason("用户未登录！不能进行匹配！");
-            session.sendMessage(new TextMessage(objectMapper.writeValueAsString(response)));
+            System.out.println("MatchAPI afterConnectionEstablished 当前用户未登录！");
         }
     }
 
@@ -108,12 +103,7 @@ public class MatchAPI extends TextWebSocketHandler {
             //玩家匹配的时候，websocket 断开了，也移除匹配队列
             matcher.remove(user);
         } catch (NullPointerException e) {
-            e.printStackTrace();
-            //用户未登录，返回 websocket 信息
-            MatchResponse response = new MatchResponse();
-            response.setOk(false);
-            response.setReason("用户未登录！不能进行匹配！");
-            session.sendMessage(new TextMessage(objectMapper.writeValueAsString(response)));
+            System.out.println("MatchAPI handleTransportError 当前用户未登录！");
         }
     }
 
@@ -129,12 +119,7 @@ public class MatchAPI extends TextWebSocketHandler {
             //玩家匹配的时候，websocket 断开了，也移除匹配队列
             matcher.remove(user);
         } catch (NullPointerException e) {
-            e.printStackTrace();
-            //用户未登录，返回 websocket 信息
-            MatchResponse response = new MatchResponse();
-            response.setOk(false);
-            response.setReason("用户未登录！不能进行匹配！");
-            session.sendMessage(new TextMessage(objectMapper.writeValueAsString(response)));
+            System.out.println("MatchAPI afterConnectionClosed 当前用户未登录！");
         }
     }
 }
