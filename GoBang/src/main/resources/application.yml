@@ -17,3 +17,5 @@ logging:
         demo: debug
 
 debug: true
+server:
+  port: 8081
