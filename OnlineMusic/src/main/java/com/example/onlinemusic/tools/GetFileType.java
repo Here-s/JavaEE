@@ -16,6 +16,7 @@ public class GetFileType {
     static {
         //检测音频
         fileHeadMap.put("494433030000","mp3");
+        fileHeadMap.put("494433040000","MP3");
         fileHeadMap.put("664c61430000","flac");//网易云无损音频文件
     }
 
