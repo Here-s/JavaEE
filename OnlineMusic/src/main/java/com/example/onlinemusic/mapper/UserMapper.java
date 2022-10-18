@@ -10,4 +10,6 @@ public interface UserMapper {
     User selectByName(String  username);
 
     Boolean registerUser(String username, String password);
+
+    Boolean registerUserAdmin(String username, String password, int admin);
 }

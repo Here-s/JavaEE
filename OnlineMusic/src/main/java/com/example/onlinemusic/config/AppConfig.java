@@ -34,9 +34,11 @@ public class AppConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/player/**")
                 .excludePathPatterns("/login.html")
                 .excludePathPatterns("/register.html")
+                .excludePathPatterns("/registeradmin.html")
                 //排除登录接口
                 .excludePathPatterns("/user/login")
-                .excludePathPatterns("/user/register");
+                .excludePathPatterns("/user/register")
+                .excludePathPatterns("/user/registeradmin");
     }
 
 }

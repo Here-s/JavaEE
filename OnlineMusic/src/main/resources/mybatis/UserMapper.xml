@@ -13,4 +13,8 @@
     <insert id="registerUser" >
         insert into user(username,password) values (#{username},#{password});
     </insert>
+
+    <insert id="registerUserAdmin">
+        insert into user(username,password,admin) values (#{username},#{password},#{admin});
+    </insert>
 </mapper>

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/user")
@@ -45,6 +46,17 @@ public class UserController {
         }
     }
 
+    @RequestMapping("/userinfo")
+    public ResponseBodyMessage<User> userInfo(HttpServletRequest request) {
+        HttpSession httpSession = request.getSession(false);
+        if (httpSession == null || httpSession.getAttribute(Constant.USERINFO_SESSION_KEY) == null) {
+            System.out.println("获取用户信息失败！");
+            return null;
+        }
+        User user = (User) httpSession.getAttribute(Constant.USERINFO_SESSION_KEY);
+        return new ResponseBodyMessage<>(0, "成功获取到用户信息", user);
+    }
+
     @RequestMapping("/register")
     public ResponseBodyMessage<Boolean> register(@RequestParam String username, @RequestParam String password1,
                                                  @RequestParam String password2) {
@@ -53,6 +65,25 @@ public class UserController {
             //对注册密码进行加密
             String password = bCryptPasswordEncoder.encode(password1);
             boolean reg = userMapper.registerUser(username, password);
+            if (!reg) {
+                System.out.println("注册失败");
+                return new ResponseBodyMessage<>(-1, "注册失败！", false);
+            } else {
+                return new ResponseBodyMessage<>(0, "注册成功！", true);
+            }
+        }
+        return new ResponseBodyMessage<>(-1, "两次密码不一样，注册失败！", false);
+    }
+
+    //注册管理员
+    @RequestMapping("/registeradmin")
+    public ResponseBodyMessage<Boolean> registerAdmin(@RequestParam String username, @RequestParam String password1,
+                                                      @RequestParam String password2) {
+        System.out.println("管理员进行注册！");
+        if (password1.equals(password2)) {
+            //对注册密码进行加密
+            String password = bCryptPasswordEncoder.encode(password1);
+            boolean reg = userMapper.registerUserAdmin(username, password, 1);
             if (!reg) {
                 System.out.println("注册失败");
                 return new ResponseBodyMessage<>(-1, "注册失败！", false);
