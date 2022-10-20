@@ -46,7 +46,7 @@ public class UserAPI {
     @PostMapping("/register")
     @ResponseBody
     public Object register(String username, String password1, String password2) {
-        if (password1.equals(password2)) {
+        if (password1.equals(password2) && !password1.equals("")) {
             try {
                 User user = new User();
                 //对注册密码加密
