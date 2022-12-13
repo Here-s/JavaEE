@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
     <head>
@@ -35,7 +36,7 @@
 
                     if (password1 === password2) {
                         $.ajax({
-                            url: "user/registeradmin",
+                            url: "user/register",
                             data: {"username": username, "password1": password1, "password2": password2},
                             type: "POST",
                             dataType: "JSON", //服务器返回 JSON
@@ -54,6 +55,8 @@
                                 }
                             }
                         });
+                    } else {
+                        alert("注册失败，两次输入的密码不一样！");
                     }
                 })
             });
@@ -61,7 +64,8 @@
     </head>
     <body id="body">
         <div class="container" style="width: 400px;border-radius: 20px;margin-top: 15%;background-color: rgba(255,255,255,0.8)">
-            <h3 style="text-align: center; ">管理员注册</h3>
+            <h3 style="text-align: center; ">注册</h3>
+            <!--        <form action="login" method="post">-->
             <div class="form-group" >
                 <label for="user">用户名：</label>
                 <input type="text" name="username" class="form-control" id="user" placeholder="请输入用户名"/>
@@ -78,7 +82,7 @@
             </div>
 
             <hr/>
-            <div class="form-group" style="text-align: center;">
+            <div class="form-group" style="text-align: center;"><!--class="form-group"-->
                 <input style="width: 200px;height: 40px" id="submit" class="btn btn btn-primary" type="button" value="注册" >
             </div>
         </div>
